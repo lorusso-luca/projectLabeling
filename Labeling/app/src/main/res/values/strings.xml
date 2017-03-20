@@ -2,4 +2,7 @@
     <string name="app_name">Labeling</string>
     <string name="inserisci_il_tuo_id">Inserisci il tuo ID</string>
     <string name="login">Login</string>
+    <string name="seleziona_il_modo_in_cui_vuoi_ottenere_i_dati">Seleziona il modo in cui vuoi ottenere i dati</string>
+    <string name="libero">Libero</string>
+    <string name="vincolato">Vincolato</string>
 </resources>

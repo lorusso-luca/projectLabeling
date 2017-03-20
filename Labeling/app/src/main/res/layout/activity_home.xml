@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/loginButton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lorusso.luca.labeling.Home">
@@ -30,12 +29,12 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/idText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="106dp"
+        android:layout_marginTop="128dp"
         android:text="@string/login" />
 
 </RelativeLayout>
