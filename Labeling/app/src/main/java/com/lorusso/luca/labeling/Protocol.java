@@ -51,5 +51,23 @@ public class Protocol {
                 '}';
     }
 
+    public ArrayList<Protocol> createProtocol (){
+        String id = "1";
+        String nome = "esempio";
+        String descrizione = "Protocollo dedicato alla camminata e seduta";
+        Exercise e1 = new Exercise("camminata",10);
+        Exercise e2 = new Exercise("seduti", 20);
+        ArrayList<Exercise> e = new ArrayList<Exercise>();
+        e.add(e1);
+        e.add(e2);
+        Protocol p1 = new Protocol(id,nome,descrizione,e);
+        ArrayList<Protocol> p = new ArrayList<Protocol>();
+        p.add(p1);
+
+
+
+        return p;
+    }
+
 
 }
