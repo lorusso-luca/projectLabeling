@@ -38,14 +38,11 @@ public class Mode extends AppCompatActivity {
                 if (checked)
                     buttonMode.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-
-                            Intent i = new Intent(Mode.this, Home.class);
-
+                            Intent i = new Intent(Mode.this, Constraint.class);
                             startActivity(i);
-
                         }
                     });
-
+                break;
             case R.id.radioLibero:
                 if (checked)
                     buttonMode.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +54,7 @@ public class Mode extends AppCompatActivity {
 
                         }
                     });
-
+                break;
         }
     }
 }
