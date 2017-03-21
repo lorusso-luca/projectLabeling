@@ -4,6 +4,10 @@ import android.content.res.Resources;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,10 +21,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 
 public class Constraint extends AppCompatActivity {
 
-
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +79,24 @@ public class Constraint extends AppCompatActivity {
                 protocols.add(p);
             }
 
+            RecyclerView rvContacts = (RecyclerView) findViewById(R.id.my_recycler_view);
 
+            // Initialize contacts
+            //temp = Person.createContactsList(temp.size());
+            // Create adapter passing in the sample user data
+            ProtocolAdapter adapter = new ProtocolAdapter(this, protocols) {
+                public void iconTextViewOnClick(View v, int position) {
+                    Log.d(TAG, "iconTextViewOnClick at position " + position);
+                }
+            };
+
+
+            // Attach the adapter to the recyclerview to populate items
+
+
+            rvContacts.setAdapter(adapter);
+            // Set layout manager to position the items
+            rvContacts.setLayoutManager(new LinearLayoutManager(this));
 
         } catch (IOException e) {
             e.printStackTrace();

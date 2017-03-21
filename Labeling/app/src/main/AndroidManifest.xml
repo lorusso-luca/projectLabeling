@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Mode" />
-        <activity android:name=".Constraint"></activity>
+        <activity android:name=".Constraint" />
+        <activity android:name=".DataConstraint"></activity>
     </application>
 
 </manifest>

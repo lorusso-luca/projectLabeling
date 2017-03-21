@@ -3,6 +3,7 @@ package com.lorusso.luca.labeling;
 import java.util.ArrayList;
 
 public class Exercise extends ArrayList<Exercise> {
+
     private String esercizio;
     private int durata;
 
