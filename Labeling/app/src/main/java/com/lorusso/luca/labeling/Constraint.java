@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 
 public class Constraint extends AppCompatActivity {
@@ -37,15 +38,40 @@ public class Constraint extends AppCompatActivity {
             byte[] b = new byte[in_s.available()];
             in_s.read(b);
 
+            String str = new String(b, "UTF-8");
+            Object obj = parser.parse(str);
 
-            Object obj = parser.parse(String.valueOf(in_s));
-            JSONArray protocolli = (JSONArray) obj;
-            File file = Environment.getDataDirectory().getAbsoluteFile();
-            int id = protocolli.size();
+            JSONObject protocolli = (JSONObject) obj;
 
-          //  String name = (String) jsonObject.get("Name");
-           // String author = (String) jsonObject.get("Author");
-            //JSONArray companyList = (JSONArray) jsonObject.get("Company List");
+            JSONArray protocolliArray = (JSONArray) protocolli.get("protocolli");
+
+            ArrayList<Protocol> protocols = new ArrayList<Protocol>();
+
+            for (int i = 0; i < protocolliArray.size(); i++) {
+                JSONObject row = (JSONObject) protocolliArray.get(i);
+                String nome = (String) row.get("nome");
+                String id = (String) row.get("id");
+                String descrizione = (String) row.get("descrizione");
+
+                JSONArray exer = (JSONArray) row.get("Exercise");
+
+
+                ArrayList<Exercise> e = new ArrayList<Exercise>();
+
+                for (int j = 0; j < exer.size(); j++) {
+                    JSONObject rowExer = (JSONObject) exer.get(j);
+                    String descExercise = (String) rowExer.get("descrizione");
+                    String durataExercise = (String)rowExer.get("durata");
+
+                    Exercise ex = new Exercise(descExercise, Integer.parseInt(durataExercise));
+                    e.add(ex);
+                }
+
+                Protocol p = new Protocol(id, nome, descrizione, e);
+                protocols.add(p);
+            }
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
