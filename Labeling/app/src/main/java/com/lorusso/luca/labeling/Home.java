@@ -26,11 +26,8 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 String idUser = id.getText().toString();
                 Intent i = new Intent(Home.this, Mode.class);
-                i.putExtra("idUser",idUser);
-
-
+                i.putExtra("idUser", idUser);
                 startActivity(i);
-
             }
         });
 

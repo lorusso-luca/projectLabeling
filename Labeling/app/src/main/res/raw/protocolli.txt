@@ -1,0 +1,34 @@
+{
+  "protocolli": [
+    {
+      "id": "1",
+      "nome": "prova",
+      "descrizione": "protocollo relax",
+      "Exercise": [
+        {
+          "descrizione": "camminare",
+          "durata": "10"
+        },
+        {
+          "descrizione": "seduto",
+          "durata": "15"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "prova 2",
+      "descrizione": "protocollo fast",
+      "Exercise": [
+        {
+          "descrizione": "corri",
+          "durata": "15"
+        },
+        {
+          "descrizione": "salta",
+          "durata": "5"
+        }
+      ]
+    }
+  ]
+}
