@@ -34,7 +34,7 @@ public class Constraint extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         JSONParser parser = new JSONParser();
 
@@ -104,5 +104,10 @@ public class Constraint extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

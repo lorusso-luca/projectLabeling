@@ -13,14 +13,19 @@ TextView temp;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_constraint);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         temp = (TextView) findViewById(R.id.tempText);
 
         Object o = getIntent().getSerializableExtra("protocol");
 
-
         temp.setText(o.toString());
 
 
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
