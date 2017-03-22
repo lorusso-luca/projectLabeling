@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Luca on 21/03/2017.
@@ -43,24 +44,34 @@ public class ProtocolAdapter extends
             itemView.findViewById(R.id.buttonContinue).setOnClickListener(this);
 
 
-
         }
 
         @Override
         public void onClick(View v) {
 
+            Toast.makeText(itemView.getContext(), "The Item Clicked is: " + getPosition(), Toast.LENGTH_SHORT).show();
 
-            Intent i = new Intent(idTextView.getContext(),DataConstraint.class);
+
+            Intent i = new Intent(idTextView.getContext(), DataConstraint.class);
 
             //errore qua!!!!!
-            i.putExtra("protocol", (Serializable) itemView.getContext());
+            i.putExtra("protocol", this.getProtocol(getPosition()));
             itemView.getContext().startActivity(i);
         }
+
+        public Protocol getProtocol(int position){
+            return protocols.get(position);
+        }
+
+    }
+
+    public List<Protocol> getProtocols() {
+        return protocols;
     }
 
 
 
-    private List<Protocol> protocols;
+    private static List<Protocol> protocols;
     // Store the context for easy access
     private Context mContext;
 

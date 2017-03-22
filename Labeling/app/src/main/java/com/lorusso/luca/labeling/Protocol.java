@@ -1,10 +1,11 @@
 package com.lorusso.luca.labeling;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 
-public class Protocol {
+public class Protocol implements Serializable {
     private String idProtocol;
     private String nome;
     private String descrizione;

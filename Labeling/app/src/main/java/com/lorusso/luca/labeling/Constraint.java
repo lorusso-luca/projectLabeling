@@ -83,10 +83,10 @@ public class Constraint extends AppCompatActivity {
 
             // Initialize contacts
             //temp = Person.createContactsList(temp.size());
-            // Create adapter passing in the sample user data
-            ProtocolAdapter adapter = new ProtocolAdapter(this, protocols) {
-                public void iconTextViewOnClick(View v, int position) {
-                    Log.d(TAG, "iconTextViewOnClick at position " + position);
+                // Create adapter passing in the sample user data
+           ProtocolAdapter adapter = new ProtocolAdapter(this, protocols) {
+               public void iconTextViewOnClick(View v, int position) {
+                  Log.d(TAG, "iconTextViewOnClick at position " + position);
                 }
             };
 
