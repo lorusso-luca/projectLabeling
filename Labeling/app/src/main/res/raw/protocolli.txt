@@ -29,6 +29,29 @@
           "durata": "5"
         }
       ]
+    },
+	{
+      "id": "3",
+      "nome": "prova 3",
+      "descrizione": "protocollo hard",
+      "Exercise": [
+        {
+          "descrizione": "corri",
+          "durata": "15"
+        },
+        {
+          "descrizione": "salta",
+          "durata": "5"
+        },
+		{
+          "descrizione": "corri",
+          "durata": "20"
+        },
+		{
+          "descrizione": "salta",
+          "durata": "10"
+        }
+      ]
     }
   ]
 }

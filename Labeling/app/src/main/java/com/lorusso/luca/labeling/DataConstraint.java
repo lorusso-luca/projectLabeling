@@ -17,7 +17,7 @@ TextView temp;
         temp = (TextView) findViewById(R.id.tempText);
 
         Object o = getIntent().getSerializableExtra("protocol");
-       
+
 
         temp.setText(o.toString());
 
