@@ -36,6 +36,7 @@ public class Constraint extends AppCompatActivity {
         setContentView(R.layout.activity_constraint);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         JSONParser parser = new JSONParser();
 
 
@@ -62,8 +63,6 @@ public class Constraint extends AppCompatActivity {
                 String descrizione = (String) row.get("descrizione");
 
                 JSONArray exer = (JSONArray) row.get("Exercise");
-
-
                 ArrayList<Exercise> e = new ArrayList<Exercise>();
 
                 for (int j = 0; j < exer.size(); j++) {

@@ -5,8 +5,10 @@ import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,11 +16,17 @@ import android.widget.EditText;
 public class Home extends AppCompatActivity {
     EditText id;
     Button loginID;
-
+    private static final String TAG = "QuizActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Log.v(TAG, "onCreate() called");
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.v(TAG, "onStart() called");
         id = (EditText) findViewById(R.id.idText);
         loginID = (Button) findViewById(R.id.buttonLogin);
 
@@ -31,5 +39,10 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
+
     }
+
 }

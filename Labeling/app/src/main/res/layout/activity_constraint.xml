@@ -14,8 +14,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="79dp"
-        android:text="Etichettatura Vincolata"
-        android:textSize="25dp"/>
+        android:text="@string/etichettatura_vincolata"
+        android:textSize="25sp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
