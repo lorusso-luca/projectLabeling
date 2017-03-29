@@ -58,7 +58,7 @@ public class Mode extends AppCompatActivity {
                     buttonMode.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
 
-                            Intent i = new Intent(Mode.this, Home.class);
+                            Intent i = new Intent(Mode.this, Free.class);
 
                             startActivity(i);
 

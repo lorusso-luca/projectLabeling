@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".Mode" />
         <activity android:name=".Constraint" />
-        <activity android:name=".DataConstraint"></activity>
+        <activity android:name=".DataConstraint" />
+        <activity android:name=".Free"></activity>
     </application>
 
 </manifest>
