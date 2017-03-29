@@ -5,5 +5,6 @@
     <string name="seleziona_il_modo_in_cui_vuoi_ottenere_i_dati">Select how to get your data</string>
     <string name="libero">Free</string>
     <string name="vincolato">Constraint</string>
-    <string name="etichettatura_vincolata">Constraint Labeling</string>
+    <string name="etichettatura_vincolata"><b>Constraint Labeling</b></string>
+    <string name="free_labeling"><b>Free Labeling</b></string>
 </resources>
