@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +21,7 @@ import java.util.Objects;
 
 public class ProtocolAdapter extends
         RecyclerView.Adapter<ProtocolAdapter.ViewHolder> {
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Your holder should contain a member variable
@@ -54,12 +56,12 @@ public class ProtocolAdapter extends
 
             Intent i = new Intent(idTextView.getContext(), DataConstraint.class);
 
-            //errore qua!!!!!
+           
             i.putExtra("protocol", this.getProtocol(getPosition()));
             itemView.getContext().startActivity(i);
         }
 
-        public Protocol getProtocol(int position){
+        public Protocol getProtocol(int position) {
             return protocols.get(position);
         }
 
@@ -68,7 +70,6 @@ public class ProtocolAdapter extends
     public List<Protocol> getProtocols() {
         return protocols;
     }
-
 
 
     private static List<Protocol> protocols;

@@ -29,6 +29,7 @@ public class Constraint extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class Constraint extends AppCompatActivity {
                 for (int j = 0; j < exer.size(); j++) {
                     JSONObject rowExer = (JSONObject) exer.get(j);
                     String descExercise = (String) rowExer.get("descrizione");
-                    String durataExercise = (String)rowExer.get("durata");
+                    String durataExercise = (String) rowExer.get("durata");
 
                     Exercise ex = new Exercise(descExercise, Integer.parseInt(durataExercise));
                     e.add(ex);
@@ -78,24 +79,21 @@ public class Constraint extends AppCompatActivity {
                 protocols.add(p);
             }
 
-            RecyclerView rvContacts = (RecyclerView) findViewById(R.id.my_recycler_view);
+            RecyclerView rvProtocol = (RecyclerView) findViewById(R.id.my_recycler_view);
 
             // Initialize contacts
             //temp = Person.createContactsList(temp.size());
-                // Create adapter passing in the sample user data
-           ProtocolAdapter adapter = new ProtocolAdapter(this, protocols) {
-               public void iconTextViewOnClick(View v, int position) {
-                  Log.d(TAG, "iconTextViewOnClick at position " + position);
+            // Create adapter passing in the sample user data
+            ProtocolAdapter adapter = new ProtocolAdapter(this, protocols) {
+                public void iconTextViewOnClick(View v, int position) {
+                    Log.d(TAG, "iconTextViewOnClick at position " + position);
                 }
             };
 
 
-            // Attach the adapter to the recyclerview to populate items
-
-
-            rvContacts.setAdapter(adapter);
+            rvProtocol.setAdapter(adapter);
             // Set layout manager to position the items
-            rvContacts.setLayoutManager(new LinearLayoutManager(this));
+            rvProtocol.setLayoutManager(new LinearLayoutManager(this));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,6 +102,7 @@ public class Constraint extends AppCompatActivity {
         }
 
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

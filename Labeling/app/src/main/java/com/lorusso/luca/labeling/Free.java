@@ -1,7 +1,9 @@
 package com.lorusso.luca.labeling;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 public class Free extends AppCompatActivity {
@@ -22,6 +24,13 @@ public class Free extends AppCompatActivity {
 
 
         completeFree = (Button) findViewById(R.id.buttonCompleteFree);
+
+        completeFree.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(Free.this, Mode.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -30,4 +39,6 @@ public class Free extends AppCompatActivity {
         return true;
 
     }
+
+
 }

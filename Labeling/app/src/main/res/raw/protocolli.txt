@@ -3,7 +3,7 @@
     {
       "id": "1",
       "nome": "prova",
-      "descrizione": "protocollo relax",
+      "descrizione": "Protocollo relax",
       "Exercise": [
         {
           "descrizione": "camminare",
@@ -18,7 +18,7 @@
     {
       "id": "2",
       "nome": "prova 2",
-      "descrizione": "protocollo fast",
+      "descrizione": "Protocollo fast",
       "Exercise": [
         {
           "descrizione": "corri",
@@ -33,7 +33,7 @@
 	{
       "id": "3",
       "nome": "prova 3",
-      "descrizione": "protocollo hard",
+      "descrizione": "Protocollo hard",
       "Exercise": [
         {
           "descrizione": "corri",

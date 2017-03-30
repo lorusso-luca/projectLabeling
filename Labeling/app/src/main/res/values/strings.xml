@@ -7,4 +7,6 @@
     <string name="vincolato">Constraint</string>
     <string name="etichettatura_vincolata"><b>Constraint Labeling</b></string>
     <string name="free_labeling"><b>Free Labeling</b></string>
+    <string name="protocol"><b>Protocol</b></string>
+    <string name="complete">Complete</string>
 </resources>

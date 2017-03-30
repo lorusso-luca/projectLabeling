@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-
 public class Protocol implements Serializable {
     private String idProtocol;
     private String nome;
@@ -38,6 +37,14 @@ public class Protocol implements Serializable {
         return descrizione;
     }
 
+    public ArrayList<Exercise> getAttività() {
+        return attività;
+    }
+
+    public void setAttività(ArrayList<Exercise> attività) {
+        this.attività = attività;
+    }
+
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
@@ -52,19 +59,18 @@ public class Protocol implements Serializable {
                 '}';
     }
 
-    public ArrayList<Protocol> createProtocol (){
+    public ArrayList<Protocol> createProtocol() {
         String id = "1";
         String nome = "esempio";
         String descrizione = "Protocollo dedicato alla camminata e seduta";
-        Exercise e1 = new Exercise("camminata",10);
+        Exercise e1 = new Exercise("camminata", 10);
         Exercise e2 = new Exercise("seduti", 20);
         ArrayList<Exercise> e = new ArrayList<Exercise>();
         e.add(e1);
         e.add(e2);
-        Protocol p1 = new Protocol(id,nome,descrizione,e);
+        Protocol p1 = new Protocol(id, nome, descrizione, e);
         ArrayList<Protocol> p = new ArrayList<Protocol>();
         p.add(p1);
-
 
 
         return p;
