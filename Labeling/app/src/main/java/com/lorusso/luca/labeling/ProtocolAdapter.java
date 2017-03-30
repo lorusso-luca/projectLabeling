@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by Luca on 21/03/2017.
- */
 
 public class ProtocolAdapter extends
         RecyclerView.Adapter<ProtocolAdapter.ViewHolder> {
@@ -53,10 +50,8 @@ public class ProtocolAdapter extends
 
             Toast.makeText(itemView.getContext(), "The Item Clicked is: " + getPosition(), Toast.LENGTH_SHORT).show();
 
-
             Intent i = new Intent(idTextView.getContext(), DataConstraint.class);
 
-           
             i.putExtra("protocol", this.getProtocol(getPosition()));
             itemView.getContext().startActivity(i);
         }
@@ -64,9 +59,7 @@ public class ProtocolAdapter extends
         public Protocol getProtocol(int position) {
             return protocols.get(position);
         }
-
     }
-
     public List<Protocol> getProtocols() {
         return protocols;
     }
