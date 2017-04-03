@@ -94,11 +94,11 @@ public class ExerciseAdapter extends
         } else {
             TextView textExercise = ViewHolder.textExercise;
             textExercise.setText(exercise.getEsercizio());
-            textExercise.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorToHide));
+            textExercise.setTextColor(ContextCompat.getColor(mContext,R.color.colorToHide));
 
             TextView textDurata = ViewHolder.textDurata;
             textDurata.setText("Durata : " + exercise.getDurata());
-            textDurata.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorToHide));
+            textDurata.setTextColor(ContextCompat.getColor(mContext,R.color.colorToHide));
 
             Button butt1 = ViewHolder.buttonStartConst;
             butt1.setClickable(false);
