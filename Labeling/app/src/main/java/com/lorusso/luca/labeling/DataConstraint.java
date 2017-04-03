@@ -35,7 +35,7 @@ public class DataConstraint extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(DataConstraint.this, Constraint.class);
-
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
         });

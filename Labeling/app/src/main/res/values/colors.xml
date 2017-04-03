@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorButtonStart">#16c12d</color>
     <color name="colorButtonStop">#bf171a</color>
+    <color name="colorToHide">#cac4c4</color>
 </resources>

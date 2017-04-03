@@ -9,4 +9,5 @@
     <string name="free_labeling"><b>Free Labeling</b></string>
     <string name="protocol"><b>Protocol</b></string>
     <string name="complete">Complete</string>
+    <string name="start_free_exercise">Select the Exercise</string>
 </resources>
