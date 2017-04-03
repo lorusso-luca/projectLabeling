@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -31,7 +32,23 @@ public class Free extends AppCompatActivity {
 
         starFree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-              
+                File folder = new File(Environment.getExternalStorageDirectory()
+                        + "/Folder");
+
+                boolean var = false;
+                if (!folder.exists())
+                    var = folder.mkdir();
+
+                System.out.println("" + var);
+
+                File gpxfile = new File(folder.toString(), "mydata.csv");
+
+                try {
+                    gpxfile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //final String filename = folder.toString() + "/" + "Test.csv";
             }
         });
 
