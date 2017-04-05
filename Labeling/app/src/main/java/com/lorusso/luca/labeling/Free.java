@@ -12,7 +12,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import au.com.bytecode.opencsv.CSVWriter;
+
+import static java.lang.Long.toOctalString;
 
 public class Free extends AppCompatActivity {
     Button starFree;
@@ -39,27 +44,56 @@ public class Free extends AppCompatActivity {
         starFree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 starFree.setBackgroundColor(getResources().getColor(R.color.colorToConfirm));
+                Calendar calendar = Calendar.getInstance();
+                long now = calendar.getTimeInMillis();
 
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-                File dataLabeling = new File(Environment.getExternalStorageDirectory()
-                        + "/DataLabeling");
-                if (!dataLabeling.exists())
-                    dataLabeling.mkdir();
-
-                File userDir = new File(dataLabeling.toString(), "/" + user);
-                if (!userDir.exists()) {
-                    userDir.mkdir();
-                }
-                exercise = spinner.getSelectedItem().toString();
-                File userDirExercise = new File(userDir.toString(), "/" + exercise);
-                if (!userDirExercise.exists()) {
-                    userDirExercise.mkdir();
-                }
-
-                File gpxfile = new File(userDirExercise.toString(), "mydata.csv");
+                String today = dateFormat.format(calendar.getTime());
+                dateFormat.applyPattern("H.m.s");
 
                 try {
-                    gpxfile.createNewFile();
+                    File dataLabeling = new File(Environment.getExternalStorageDirectory()
+                            + "/DataLabeling");
+                    if (!dataLabeling.exists())
+                        dataLabeling.mkdir();
+
+                    File userDir = new File(dataLabeling.toString(), "/" + user);
+                    if (!userDir.exists()) {
+                        userDir.mkdir();
+                    }
+                    File userDirMode = new File(userDir.toString(), "/Free");
+                    if (!userDirMode.exists()) {
+                        userDirMode.mkdir();
+                    }
+
+                    exercise = spinner.getSelectedItem().toString();
+
+                    File userDirExercise = new File(userDirMode.toString(), "/" + exercise);
+                    if (!userDirExercise.exists()) {
+                        userDirExercise.mkdir();
+                    }
+
+                    File userDirExerciseDay = new File(userDirExercise.toString(), "/" + today);
+
+                    if (!userDirExerciseDay.exists()) {
+                        userDirExerciseDay.mkdir();
+                    }
+
+
+                    File outputFileFree = new File(userDirExerciseDay.toString(), "mydata.csv");
+
+                    outputFileFree.createNewFile();
+
+                    CSVWriter writer = new CSVWriter(new FileWriter(outputFileFree.toString()));
+
+
+                    String[] temp = {toOctalString(now)};
+                    writer.writeNext(temp);
+
+                    writer.close();
+
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
