@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,12 +18,17 @@ public class Free extends AppCompatActivity {
     Button starFree;
     Button stopFree;
     Button completeFree;
+    String user;
+    Spinner spinner;
+    String exercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_free);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        user = getIntent().getStringExtra("user");
+        spinner = (Spinner) findViewById(R.id.spinner);
 
     }
 
@@ -32,23 +38,32 @@ public class Free extends AppCompatActivity {
 
         starFree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                File folder = new File(Environment.getExternalStorageDirectory()
-                        + "/Folder");
+                starFree.setBackgroundColor(getResources().getColor(R.color.colorToConfirm));
 
-                boolean var = false;
-                if (!folder.exists())
-                    var = folder.mkdir();
 
-                System.out.println("" + var);
+                File dataLabeling = new File(Environment.getExternalStorageDirectory()
+                        + "/DataLabeling");
+                if (!dataLabeling.exists())
+                    dataLabeling.mkdir();
 
-                File gpxfile = new File(folder.toString(), "mydata.csv");
+                File userDir = new File(dataLabeling.toString(), "/" + user);
+                if (!userDir.exists()) {
+                    userDir.mkdir();
+                }
+                exercise = spinner.getSelectedItem().toString();
+                File userDirExercise = new File(userDir.toString(), "/" + exercise);
+                if (!userDirExercise.exists()) {
+                    userDirExercise.mkdir();
+                }
+
+                File gpxfile = new File(userDirExercise.toString(), "mydata.csv");
 
                 try {
                     gpxfile.createNewFile();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                //final String filename = folder.toString() + "/" + "Test.csv";
+
             }
         });
 
@@ -61,7 +76,7 @@ public class Free extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(Free.this, Mode.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+                i.putExtra("idUser", user);
                 startActivity(i);
             }
         });

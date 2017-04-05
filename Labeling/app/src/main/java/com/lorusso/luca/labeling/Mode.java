@@ -1,7 +1,6 @@
 package com.lorusso.luca.labeling;
 
 
-
 import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +16,7 @@ public class Mode extends AppCompatActivity {
     RadioButton radioLibero;
     RadioButton radioVincolato;
     Button buttonMode;
-
+    String user;
 
 
     @Override
@@ -30,8 +29,9 @@ public class Mode extends AppCompatActivity {
         radioLibero = (RadioButton) findViewById(R.id.radioLibero);
         radioVincolato = (RadioButton) findViewById(R.id.radioVincolato);
         buttonMode = (Button) findViewById(R.id.buttonMode);
-
+        user = getIntent().getStringExtra("idUser");
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -49,6 +49,7 @@ public class Mode extends AppCompatActivity {
                     buttonMode.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             Intent i = new Intent(Mode.this, Constraint.class);
+                            i.putExtra("user", user);
                             startActivity(i);
                         }
                     });
@@ -59,7 +60,7 @@ public class Mode extends AppCompatActivity {
                         public void onClick(View v) {
 
                             Intent i = new Intent(Mode.this, Free.class);
-
+                            i.putExtra("user", user);
                             startActivity(i);
 
                         }

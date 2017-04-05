@@ -2,7 +2,7 @@
     <string name="app_name">Labeling</string>
     <string name="inserisci_il_tuo_id"><b>Insert your ID</b></string>
     <string name="login">Login</string>
-    <string name="seleziona_il_modo_in_cui_vuoi_ottenere_i_dati">Select how to get your data</string>
+    <string name="seleziona_il_modo_in_cui_vuoi_ottenere_i_dati"><b>Select how to get your data</b></string>
     <string name="libero">Free</string>
     <string name="vincolato">Constraint</string>
     <string name="etichettatura_vincolata"><b>Constraint Labeling</b></string>
