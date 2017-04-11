@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,6 +28,9 @@ public class Free extends AppCompatActivity {
     String user;
     Spinner spinner;
     String exercise;
+    File outputFileFree;
+    long nowStart;
+    long nowFinish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +48,17 @@ public class Free extends AppCompatActivity {
 
         starFree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                starFree.setBackgroundColor(getResources().getColor(R.color.colorToConfirm));
-                Calendar calendar = Calendar.getInstance();
-                long now = calendar.getTimeInMillis();
 
+                Calendar calendar = Calendar.getInstance();
+                nowStart = calendar.getTimeInMillis();
+                starFree.setBackgroundColor(getResources().getColor(R.color.colorToConfirm));
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
                 String today = dateFormat.format(calendar.getTime());
-                dateFormat.applyPattern("H.m.s");
+                dateFormat.applyPattern("HH:mm.ss");
+                String time = dateFormat.format(calendar.getTime());
 
+                spinner.setClickable(false);
                 try {
                     File dataLabeling = new File(Environment.getExternalStorageDirectory()
                             + "/DataLabeling");
@@ -80,18 +87,16 @@ public class Free extends AppCompatActivity {
                         userDirExerciseDay.mkdir();
                     }
 
+                    File userDirExerciseDayHour = new File(userDirExerciseDay.toString(), "/" + time);
 
-                    File outputFileFree = new File(userDirExerciseDay.toString(), "mydata.csv");
+                    if (!userDirExerciseDayHour.exists()) {
+                        userDirExerciseDayHour.mkdir();
+                    }
+
+
+                    outputFileFree = new File(userDirExerciseDayHour.toString(), "mydata.csv");
 
                     outputFileFree.createNewFile();
-
-                    CSVWriter writer = new CSVWriter(new FileWriter(outputFileFree.toString()));
-
-
-                    String[] temp = {toOctalString(now)};
-                    writer.writeNext(temp);
-
-                    writer.close();
 
 
                 } catch (IOException e) {
@@ -102,7 +107,35 @@ public class Free extends AppCompatActivity {
         });
 
         stopFree = (Button) findViewById(R.id.buttonStop);
+        stopFree.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                nowFinish = calendar.getTimeInMillis();
+                if (nowStart == 0) {
+                    Toast.makeText(Free.this, "Tap on Button start before! ", Toast.LENGTH_LONG).show();
+                } else {
+                    stopFree.setBackgroundColor(getResources().getColor(R.color.colorToConfirm));
+                    StringBuilder temp = new StringBuilder();
+                    temp.append("Start");
+                    temp.append(",");
+                    temp.append("Stop");
+                    temp.append("\n");
+                    temp.append(toOctalString(nowStart));
+                    temp.append(",");
+                    temp.append(toOctalString(nowFinish));
+                    try {
+                        PrintWriter writer = new PrintWriter(new FileWriter(outputFileFree.toString()));
 
+                        writer.write(temp.toString());
+                        writer.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+        });
 
         completeFree = (Button) findViewById(R.id.buttonCompleteFree);
 

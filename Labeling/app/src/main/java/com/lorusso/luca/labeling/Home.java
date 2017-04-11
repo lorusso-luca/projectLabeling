@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class Home extends AppCompatActivity {
@@ -33,9 +34,14 @@ public class Home extends AppCompatActivity {
         loginID.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String idUser = id.getText().toString();
-                Intent i = new Intent(Home.this, Mode.class);
-                i.putExtra("idUser", idUser);
-                startActivity(i);
+                if(idUser.equals("")){
+                    Toast.makeText(Home.this, "The field is empty! Please insert your personal ID.", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent i = new Intent(Home.this, Mode.class);
+                    i.putExtra("idUser", idUser);
+                    startActivity(i);
+                }
+
             }
         });
 
