@@ -1,6 +1,8 @@
 package com.lorusso.luca.labeling;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Environment;
 import android.renderscript.Sampler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +13,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -31,6 +37,7 @@ public class ExerciseAdapter extends
         public static Button buttonStartConst;
         public static Button buttonRestart;
 
+
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
@@ -45,7 +52,11 @@ public class ExerciseAdapter extends
             buttonStartConst = (Button) itemView.findViewById(R.id.buttonStartConst);
             buttonRestart = (Button) itemView.findViewById(R.id.buttonRestart);
             itemView.findViewById(R.id.buttonStartConst).setOnClickListener(this);
+
+
+
         }
+
 
 
         @Override
@@ -83,7 +94,7 @@ public class ExerciseAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         Exercise exercise = exercises.get(position);
         if (position == 0) {
             TextView textExercise = ViewHolder.textExercise;
@@ -91,6 +102,69 @@ public class ExerciseAdapter extends
 
             TextView textDurata = ViewHolder.textDurata;
             textDurata.setText("Durata : " + exercise.getDurata());
+
+            final Button butt1 = ViewHolder.buttonStartConst;
+
+            butt1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar calendar = Calendar.getInstance();
+                    long nowStart = calendar.getTimeInMillis();
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+                    String today = dateFormat.format(calendar.getTime());
+                    dateFormat.applyPattern("HH:mm.ss");
+                    String time = dateFormat.format(calendar.getTime());
+
+
+
+                    try {
+                        File dataLabeling = new File(Environment.getExternalStorageDirectory()
+                                + "/DataLabeling");
+                        if (!dataLabeling.exists())
+                            dataLabeling.mkdir();
+
+                        File userDir = new File(dataLabeling.toString(), "/" + "ciao");
+                        if (!userDir.exists()) {
+                            userDir.mkdir();
+                        }
+                        File userDirMode = new File(userDir.toString(), "/Costraint");
+                        if (!userDirMode.exists()) {
+                            userDirMode.mkdir();
+                        }
+
+
+
+                        File userDirExercise = new File(userDirMode.toString(), "/" + "ciaociao");
+                        if (!userDirExercise.exists()) {
+                            userDirExercise.mkdir();
+                        }
+
+                        File userDirExerciseDay = new File(userDirExercise.toString(), "/" + today);
+
+                        if (!userDirExerciseDay.exists()) {
+                            userDirExerciseDay.mkdir();
+                        }
+
+                        File userDirExerciseDayHour = new File(userDirExerciseDay.toString(), "/" + time);
+
+                        if (!userDirExerciseDayHour.exists()) {
+                            userDirExerciseDayHour.mkdir();
+                        }
+
+
+                        File outputFileFree = new File(userDirExerciseDayHour.toString(), "mydata.csv");
+
+                        outputFileFree.createNewFile();
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
         } else {
             TextView textExercise = ViewHolder.textExercise;
             textExercise.setText(exercise.getEsercizio());

@@ -58,7 +58,8 @@ public class Free extends AppCompatActivity {
                 dateFormat.applyPattern("HH:mm.ss");
                 String time = dateFormat.format(calendar.getTime());
 
-                spinner.setClickable(false);
+
+                spinner.setEnabled(false);
                 try {
                     File dataLabeling = new File(Environment.getExternalStorageDirectory()
                             + "/DataLabeling");
