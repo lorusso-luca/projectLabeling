@@ -103,7 +103,6 @@ public class Mode extends AppCompatActivity {
                 if (checked)
                     buttonMode.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-
                             Intent i = new Intent(Mode.this, Constraint.class);
                             i.putExtra("user", user);
                             startActivity(i);

@@ -1,5 +1,6 @@
 package com.lorusso.luca.labeling;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +37,7 @@ public class Constraint extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        final String user = getIntent().getStringExtra("user");
 
         JSONParser parser = new JSONParser();
 
@@ -87,6 +88,7 @@ public class Constraint extends AppCompatActivity {
             ProtocolAdapter adapter = new ProtocolAdapter(this, protocols) {
                 public void iconTextViewOnClick(View v, int position) {
                     Log.d(TAG, "iconTextViewOnClick at position " + position);
+
                 }
             };
 

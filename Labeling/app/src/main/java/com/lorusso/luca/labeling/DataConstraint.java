@@ -20,20 +20,21 @@ public class DataConstraint extends AppCompatActivity {
     TextView temp;
     TextView protocolDescription;
     Button completeConst;
+    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_constraint);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        user = getIntent().getStringExtra("user");
         // temp = (TextView) findViewById(R.id.tempText);
         protocolDescription = (TextView) findViewById(R.id.textProtocolDesc);
         completeConst = (Button) findViewById(R.id.buttonCompleteCons);
 
+
         completeConst.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Intent i = new Intent(DataConstraint.this, Constraint.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
@@ -42,22 +43,26 @@ public class DataConstraint extends AppCompatActivity {
 
         Protocol o = (Protocol) getIntent().getSerializableExtra("protocol");
         protocolDescription.setText(o.getDescrizione().toString());
-
+        final String desc = o.getDescrizione();
         ArrayList<Exercise> exercises = new ArrayList<Exercise>();
 
         exercises.addAll(o.getAttività());
-        System.out.print(exercises.toString());
+
 
         RecyclerView rvExercise = (RecyclerView) findViewById(R.id.my_recycler_view_exercise);
 
         ExerciseAdapter adapter = new ExerciseAdapter(this, exercises) {
             public void iconTextViewOnClick(View v, int position) {
                 Log.d(TAG, "iconTextViewOnClick at position " + position);
+                final Intent i = new Intent(DataConstraint.this, ExerciseAdapter.class);
+                i.putExtra("descProtocol", desc);
+                i.putExtra("idUser", user);
+                startActivity(i);
             }
 
         };
         rvExercise.setAdapter(adapter);
-        // Set layout manager to position the items
+
         rvExercise.setLayoutManager(new LinearLayoutManager(this));
 
     }

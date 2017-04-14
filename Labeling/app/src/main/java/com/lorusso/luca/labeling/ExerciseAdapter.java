@@ -1,5 +1,6 @@
 package com.lorusso.luca.labeling;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
@@ -28,7 +29,7 @@ public class ExerciseAdapter extends
         RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
@@ -51,20 +52,10 @@ public class ExerciseAdapter extends
 
             buttonStartConst = (Button) itemView.findViewById(R.id.buttonStartConst);
             buttonRestart = (Button) itemView.findViewById(R.id.buttonRestart);
-            itemView.findViewById(R.id.buttonStartConst).setOnClickListener(this);
-
+            //itemView.findViewById(R.id.buttonStartConst).setOnClickListener(this);
 
 
         }
-
-
-
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(itemView.getContext(), "The Item Clicked is: " + getPosition(), Toast.LENGTH_SHORT).show();
-
-        }
-
 
     }
 
@@ -95,15 +86,17 @@ public class ExerciseAdapter extends
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Exercise exercise = exercises.get(position);
+        final Exercise exercise = exercises.get(position);
         if (position == 0) {
             TextView textExercise = ViewHolder.textExercise;
             textExercise.setText(exercise.getEsercizio());
 
             TextView textDurata = ViewHolder.textDurata;
             textDurata.setText("Durata : " + exercise.getDurata());
-
+            final String descProtocol = ((Activity) mContext).getIntent().getStringExtra("descProtocol");
             final Button butt1 = ViewHolder.buttonStartConst;
+            final String user = ((Activity) mContext).getIntent().getStringExtra("user");
+
 
             butt1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,12 +104,12 @@ public class ExerciseAdapter extends
                     Calendar calendar = Calendar.getInstance();
                     long nowStart = calendar.getTimeInMillis();
 
+                    butt1.setBackgroundColor(R.color.colorToConfirm);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
                     String today = dateFormat.format(calendar.getTime());
                     dateFormat.applyPattern("HH:mm.ss");
                     String time = dateFormat.format(calendar.getTime());
-
 
 
                     try {
@@ -125,7 +118,8 @@ public class ExerciseAdapter extends
                         if (!dataLabeling.exists())
                             dataLabeling.mkdir();
 
-                        File userDir = new File(dataLabeling.toString(), "/" + "ciao");
+
+                        File userDir = new File(dataLabeling.toString(), "/" + user);
                         if (!userDir.exists()) {
                             userDir.mkdir();
                         }
@@ -135,8 +129,7 @@ public class ExerciseAdapter extends
                         }
 
 
-
-                        File userDirExercise = new File(userDirMode.toString(), "/" + "ciaociao");
+                        File userDirExercise = new File(userDirMode.toString(), "/" + descProtocol);
                         if (!userDirExercise.exists()) {
                             userDirExercise.mkdir();
                         }
@@ -168,19 +161,19 @@ public class ExerciseAdapter extends
         } else {
             TextView textExercise = ViewHolder.textExercise;
             textExercise.setText(exercise.getEsercizio());
-            textExercise.setTextColor(ContextCompat.getColor(mContext,R.color.colorToHide));
+            textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
 
             TextView textDurata = ViewHolder.textDurata;
             textDurata.setText("Durata : " + exercise.getDurata());
-            textDurata.setTextColor(ContextCompat.getColor(mContext,R.color.colorToHide));
+            textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
 
             Button butt1 = ViewHolder.buttonStartConst;
             butt1.setClickable(false);
-            butt1.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorToHide));
+            butt1.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
 
             Button butt2 = ViewHolder.buttonRestart;
             butt2.setClickable(false);
-            butt2.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorToHide));
+            butt2.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
 
         }
 
