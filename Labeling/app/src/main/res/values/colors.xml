@@ -7,4 +7,5 @@
     <color name="colorButtonStop">#bf171a</color>
     <color name="colorToHide">#cac4c4</color>
     <color name="colorToConfirm">#0c5ab3</color>
+    <color name="colorDefault">#0c5ab3</color>
 </resources>

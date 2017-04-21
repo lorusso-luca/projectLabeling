@@ -3,6 +3,7 @@ package com.lorusso.luca.labeling;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.renderscript.Sampler;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.lorusso.luca.labeling.R.id.buttonStartConst;
+import static com.lorusso.luca.labeling.R.id.my_recycler_view_exercise;
 import static java.lang.Long.toOctalString;
 
 /**
@@ -73,7 +75,7 @@ public class ExerciseAdapter extends
     // Store the context for easy access
     private Context mContext;
     String timeStart;
-    int pos = 0;
+    ArrayList<ViewHolder> vh = new ArrayList<ViewHolder>();
 
     public ExerciseAdapter(Context mContext, ArrayList<Exercise> exercises) {
         this.exercises = exercises;
@@ -91,6 +93,7 @@ public class ExerciseAdapter extends
 
         // Return a new holder instance
         ExerciseAdapter.ViewHolder viewHolder = new ExerciseAdapter.ViewHolder(contactViewExercise);
+
         return viewHolder;
 
     }
@@ -98,36 +101,43 @@ public class ExerciseAdapter extends
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        vh.add(holder);
 
         final Exercise exercise = exercises.get(position);
 
-        holder.textExercise.setText(exercise.getEsercizio());;
+        holder.textExercise.setText(exercise.getEsercizio());
+
+        holder.itemView.setTag(position);
 
         holder.textDurata.setText("Durata: " + exercise.getDurata());
 
+        holder.buttonStartConst.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorButtonStart));
+        holder.buttonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+        holder.buttonRestart.setClickable(false);
 
         holder.buttonStartConst.setTag(position);
-        pos++;
-
-        //ViewHolder.buttonRestart.setTag(position);
-
-
-//nooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+        holder.buttonRestart.setTag(position);
+        holder.textDurata.setTag(position);
+        holder.textExercise.setTag(position);
 
         if (position != 0) {
             holder.textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
             holder.textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
             holder.buttonStartConst.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
             holder.buttonStartConst.setClickable(false);
-            holder.buttonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
-            holder.buttonRestart.setClickable(false);
+
         }
         holder.buttonStartConst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doAction((Integer) v.getTag(),holder);
-
-                holder.buttonStartConst.setText(((Integer) v.getTag()).toString());
+                holder.buttonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorButtonStop));
+                doAction((Integer) v.getTag(), holder);
+                holder.buttonRestart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mContext, "Restaaaaart", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -135,21 +145,21 @@ public class ExerciseAdapter extends
 
     public StringBuilder total = new StringBuilder();
 
-    public void doAction(int i,ViewHolder holder) {
+    public void doAction(int i, ViewHolder holder) {
 
         if (i == 0) {
             total.append("Start");
             total.append(",");
             total.append("Stop");
             total.append("\n");
-            createTuple(i,holder);
+            createTuple(i, holder);
             Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
         } else if (i >= 1 && i < exercises.size() - 1) {
-            createTuple(i,holder);
+            createTuple(i, holder);
             total.append("\n");
         } else {
             total.append("\n");
-            createTuple(i,holder);
+            createTuple(i, holder);
             Toast.makeText(mContext, toOctalString(i) + "ultimo", Toast.LENGTH_LONG).show();
 
         }
@@ -224,11 +234,11 @@ public class ExerciseAdapter extends
             CountDownTimer timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    // Toast.makeText(mContext, "Sto contando....." + toOctalString(getItemCount()), Toast.LENGTH_SHORT).show();
                     if (millisUntilFinished > 0) {
-                        //buttonStartConst.setClickable(false);
-
-
+                        holder.buttonRestart.setClickable(true);
+                        holder.buttonStartConst.setClickable(false);
+                        holder.textDurata.setClickable(false);
+                        holder.textExercise.setClickable(false);
                     }
                 }
 
@@ -245,7 +255,9 @@ public class ExerciseAdapter extends
                     writer.close();
                     Toast.makeText(mContext, "ho finito" + toOctalString(getItemCount()), Toast.LENGTH_LONG).show();
                     total.delete(0, total.length());
-                    enableButton(i,holder);
+                    enableButton(i, holder);
+                    disableButton(i, holder);
+
                 }
             }.start();
 
@@ -255,12 +267,20 @@ public class ExerciseAdapter extends
         return true;
     }
 
-    public void enableButton(int tag,ViewHolder holder) {
+    public void enableButton(int tag, ViewHolder holder) {
         try {
-            Button tempButton = (Button) holder.buttonStartConst.findViewWithTag(tag);
 
-            int i = getItemViewType(tag);
-            tempButton.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToConfirm));
+            ViewHolder viewHolder = vh.get(tag + 1);
+            Button tempButton = (Button) viewHolder.buttonStartConst.findViewWithTag(tag + 1);
+            tempButton.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorButtonStart));
+
+
+            TextView textViewDurata = (TextView) viewHolder.textDurata.findViewWithTag(tag+1);
+            textViewDurata.setTextColor(R.color.colorAccent);
+
+            TextView textViewExercise = (TextView) viewHolder.textExercise.findViewWithTag(tag+1);
+            textViewExercise.setTextColor(R.color.colorAccent);
+
 
         } catch (Exception e) {
             e.getStackTrace();
@@ -268,8 +288,18 @@ public class ExerciseAdapter extends
 
     }
 
-    public void disableButton(int tag) {
+    public void disableButton(int tag, ViewHolder holder) {
+        try {
+            Button tempButtonStart = (Button) holder.buttonStartConst.findViewWithTag(tag);
+            tempButtonStart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToConfirm));
+            Button tempButtonRestart = (Button) holder.buttonRestart.findViewWithTag(tag);
+            tempButtonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+            holder.textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+            holder.textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
 
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
 
