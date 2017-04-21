@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+import static com.lorusso.luca.labeling.R.id.buttonStartConst;
 import static java.lang.Long.toOctalString;
 
 /**
@@ -41,10 +42,10 @@ public class ExerciseAdapter extends
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
 
-        public static TextView textExercise;
-        public static TextView textDurata;
-        public static Button buttonStartConst;
-        public static Button buttonRestart;
+        public TextView textExercise;
+        public TextView textDurata;
+        public Button buttonStartConst;
+        public Button buttonRestart;
 
 
         // We also create a constructor that accepts the entire item row
@@ -72,7 +73,7 @@ public class ExerciseAdapter extends
     // Store the context for easy access
     private Context mContext;
     String timeStart;
-
+    int pos = 0;
 
     public ExerciseAdapter(Context mContext, ArrayList<Exercise> exercises) {
         this.exercises = exercises;
@@ -100,15 +101,13 @@ public class ExerciseAdapter extends
 
         final Exercise exercise = exercises.get(position);
 
-        TextView textExercise = ViewHolder.textExercise;
-        textExercise.setText(exercise.getEsercizio());
+        holder.textExercise.setText(exercise.getEsercizio());;
 
-        TextView textDurata = ViewHolder.textDurata;
-        textDurata.setText("Durata: " + exercise.getDurata());
+        holder.textDurata.setText("Durata: " + exercise.getDurata());
 
 
-        ViewHolder.buttonStartConst.setTag(position);
-
+        holder.buttonStartConst.setTag(position);
+        pos++;
 
         //ViewHolder.buttonRestart.setTag(position);
 
@@ -116,18 +115,19 @@ public class ExerciseAdapter extends
 //nooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
         if (position != 0) {
-            textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
-            textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
-            ViewHolder.buttonStartConst.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
-            ViewHolder.buttonStartConst.setClickable(false);
-            ViewHolder.buttonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
-            ViewHolder.buttonRestart.setClickable(false);
+            holder.textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+            holder.textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+            holder.buttonStartConst.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+            holder.buttonStartConst.setClickable(false);
+            holder.buttonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+            holder.buttonRestart.setClickable(false);
         }
-        ViewHolder.buttonStartConst.setOnClickListener(new View.OnClickListener() {
+        holder.buttonStartConst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doAction((Integer) v.getTag());
+                doAction((Integer) v.getTag(),holder);
 
+                holder.buttonStartConst.setText(((Integer) v.getTag()).toString());
             }
         });
 
@@ -135,21 +135,21 @@ public class ExerciseAdapter extends
 
     public StringBuilder total = new StringBuilder();
 
-    public void doAction(int i) {
+    public void doAction(int i,ViewHolder holder) {
 
         if (i == 0) {
             total.append("Start");
             total.append(",");
             total.append("Stop");
             total.append("\n");
-            createTuple(i);
+            createTuple(i,holder);
             Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
         } else if (i >= 1 && i < exercises.size() - 1) {
-            createTuple(i);
+            createTuple(i,holder);
             total.append("\n");
         } else {
             total.append("\n");
-            createTuple(i);
+            createTuple(i,holder);
             Toast.makeText(mContext, toOctalString(i) + "ultimo", Toast.LENGTH_LONG).show();
 
         }
@@ -158,7 +158,7 @@ public class ExerciseAdapter extends
     }
 
 
-    public boolean createTuple(final int i) {
+    public boolean createTuple(final int i, final ViewHolder holder) {
         File outputFileConstr = null;
         Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
         Calendar calendar = Calendar.getInstance();
@@ -224,9 +224,9 @@ public class ExerciseAdapter extends
             CountDownTimer timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                   // Toast.makeText(mContext, "Sto contando....." + toOctalString(getItemCount()), Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(mContext, "Sto contando....." + toOctalString(getItemCount()), Toast.LENGTH_SHORT).show();
                     if (millisUntilFinished > 0) {
-                        ViewHolder.buttonStartConst.setClickable(false);
+                        //buttonStartConst.setClickable(false);
 
 
                     }
@@ -245,7 +245,7 @@ public class ExerciseAdapter extends
                     writer.close();
                     Toast.makeText(mContext, "ho finito" + toOctalString(getItemCount()), Toast.LENGTH_LONG).show();
                     total.delete(0, total.length());
-                    enableButton(i);
+                    enableButton(i,holder);
                 }
             }.start();
 
@@ -255,9 +255,9 @@ public class ExerciseAdapter extends
         return true;
     }
 
-    public void enableButton(int tag) {
+    public void enableButton(int tag,ViewHolder holder) {
         try {
-            Button tempButton = (Button) ViewHolder.buttonStartConst.findViewWithTag(tag);
+            Button tempButton = (Button) holder.buttonStartConst.findViewWithTag(tag);
 
             int i = getItemViewType(tag);
             tempButton.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToConfirm));
