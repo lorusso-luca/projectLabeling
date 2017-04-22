@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -76,6 +78,9 @@ public class ExerciseAdapter extends
     private Context mContext;
     String timeStart;
     ArrayList<ViewHolder> vh = new ArrayList<ViewHolder>();
+    CountDownTimer timer;
+    File outputFileConstr = null;
+    String finalPath = null;
 
     public ExerciseAdapter(Context mContext, ArrayList<Exercise> exercises) {
         this.exercises = exercises;
@@ -130,12 +135,19 @@ public class ExerciseAdapter extends
         holder.buttonStartConst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 holder.buttonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorButtonStop));
                 doAction((Integer) v.getTag(), holder);
                 holder.buttonRestart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(mContext, "Restaaaaart", Toast.LENGTH_SHORT).show();
+                        if (timer != null) {
+                            timer.cancel();
+                        }
+                        holder.buttonStartConst.setClickable(true);
+                        holder.buttonRestart.setClickable(false);
+                        holder.buttonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
                     }
                 });
             }
@@ -148,18 +160,12 @@ public class ExerciseAdapter extends
     public void doAction(int i, ViewHolder holder) {
 
         if (i == 0) {
-            total.append("Start");
-            total.append(",");
-            total.append("Stop");
-            total.append("\n");
-            createTuple(i, holder);
+            createFile(i, holder);
             Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
         } else if (i >= 1 && i < exercises.size() - 1) {
-            createTuple(i, holder);
-            total.append("\n");
+            buildString(i, holder);
         } else {
-            total.append("\n");
-            createTuple(i, holder);
+            createFinalFile(i, holder);
             Toast.makeText(mContext, toOctalString(i) + "ultimo", Toast.LENGTH_LONG).show();
 
         }
@@ -168,7 +174,183 @@ public class ExerciseAdapter extends
     }
 
 
-    public boolean createTuple(final int i, final ViewHolder holder) {
+    public void createFile(final int i, final ViewHolder holder) {
+
+        Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
+        Calendar calendar = Calendar.getInstance();
+        final long nowStart = calendar.getTimeInMillis();
+        String user = ((Activity) mContext).getIntent().getStringExtra("user");
+        final String descProtocol = ((Activity) mContext).getIntent().getStringExtra("descProtocol");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        final String today = dateFormat.format(calendar.getTime());
+        dateFormat.applyPattern("HH:mm");
+        String time = dateFormat.format(calendar.getTime());
+
+        try {
+
+            File dataLabeling = new File(Environment.getExternalStorageDirectory()
+                    + "/DataLabeling");
+            if (!dataLabeling.exists())
+                dataLabeling.mkdir();
+
+
+            File userDir = new File(dataLabeling.toString(), "/" + user);
+            if (!userDir.exists()) {
+                userDir.mkdir();
+            }
+            File userDirMode = new File(userDir.toString(), "/Costraint");
+            if (!userDirMode.exists()) {
+                userDirMode.mkdir();
+            }
+
+
+            File userDirExercise = new File(userDirMode.toString(), "/" + descProtocol);
+            if (!userDirExercise.exists()) {
+                userDirExercise.mkdir();
+            }
+
+            File userDirExerciseDay = new File(userDirExercise.toString(), "/" + today);
+
+            if (!userDirExerciseDay.exists()) {
+                userDirExerciseDay.mkdir();
+            }
+
+            File userDirExerciseDayHour = new File(userDirExerciseDay.toString(), "/" + time);
+
+            if (!userDirExerciseDayHour.exists()) {
+                userDirExerciseDayHour.mkdir();
+            }
+
+            finalPath = userDirExerciseDayHour.toString();
+
+            outputFileConstr = new File(finalPath, "mydata.csv");
+
+            outputFileConstr.createNewFile();
+
+            timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    if (millisUntilFinished > 0) {
+                        holder.buttonRestart.setClickable(true);
+                        holder.buttonStartConst.setClickable(false);
+                        holder.textDurata.setClickable(false);
+                        holder.textExercise.setClickable(false);
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    Calendar calendar = Calendar.getInstance();
+                    long nowFinish = calendar.getTimeInMillis();
+                    total.append("Start");
+                    total.append(",");
+                    total.append("Stop");
+                    total.append("\n");
+                    total.append(nowStart);
+                    total.append(",");
+                    total.append(toOctalString(nowFinish));
+                    total.append(",");
+                    total.append(exercises.get(i).getEsercizio());
+
+                    Toast.makeText(mContext, "ho finito" + toOctalString(getItemCount()), Toast.LENGTH_LONG).show();
+
+                    enableButton(i, holder);
+                    disableButton(i, holder);
+
+                }
+            }.start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void buildString(final int i, final ViewHolder holder) {
+        Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
+        Calendar calendar = Calendar.getInstance();
+        final long nowStart = calendar.getTimeInMillis();
+        timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (millisUntilFinished > 0) {
+                    holder.buttonRestart.setClickable(true);
+                    holder.buttonStartConst.setClickable(false);
+                    holder.textDurata.setClickable(false);
+                    holder.textExercise.setClickable(false);
+
+
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                Calendar calendar = Calendar.getInstance();
+                long nowFinish = calendar.getTimeInMillis();
+                total.append("\n");
+                total.append(nowStart);
+                total.append(",");
+                total.append(toOctalString(nowFinish));
+                total.append(",");
+                total.append(exercises.get(i).getEsercizio());
+
+                Toast.makeText(mContext, "ho finito" + toOctalString(getItemCount()), Toast.LENGTH_LONG).show();
+
+                enableButton(i, holder);
+                disableButton(i, holder);
+
+            }
+        }.start();
+
+    }
+
+    private void createFinalFile(final int i, final ViewHolder holder) {
+        Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
+        Calendar calendar = Calendar.getInstance();
+        final long nowStart = calendar.getTimeInMillis();
+        outputFileConstr = new File(finalPath, "mydata.csv");
+        timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (millisUntilFinished > 0) {
+                    holder.buttonRestart.setClickable(true);
+                    holder.buttonStartConst.setClickable(false);
+                    holder.textDurata.setClickable(false);
+                    holder.textExercise.setClickable(false);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                Calendar calendar = Calendar.getInstance();
+                long nowFinish = calendar.getTimeInMillis();
+                total.append("\n");
+                total.append(nowStart);
+                total.append(",");
+                total.append(toOctalString(nowFinish));
+                total.append(",");
+                total.append(exercises.get(i).getEsercizio());
+                Toast.makeText(mContext, "ho finito" + toOctalString(getItemCount()), Toast.LENGTH_LONG).show();
+                enableButton(i, holder);
+                disableButton(i, holder);
+                PrintWriter writer = null;
+                try {
+                    writer = new PrintWriter(new FileWriter(outputFileConstr.toString()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                writer.write(total.toString());
+                writer.close();
+
+            }
+        }.start();
+
+
+    }
+
+    /*public boolean createTuple(final int i, final ViewHolder holder) {
         File outputFileConstr = null;
         Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
         Calendar calendar = Calendar.getInstance();
@@ -218,20 +400,19 @@ public class ExerciseAdapter extends
             }
 
 
+
             outputFileConstr = new File(userDirExerciseDayHour.toString(), "mydata.csv");
 
             outputFileConstr.createNewFile();
 
 
             final PrintWriter writer = new PrintWriter(new FileWriter(outputFileConstr.toString()));
-
-
             total.append(toOctalString(nowStart));
 
 
             writer.write(total.toString());
 
-            CountDownTimer timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
+            timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     if (millisUntilFinished > 0) {
@@ -239,6 +420,8 @@ public class ExerciseAdapter extends
                         holder.buttonStartConst.setClickable(false);
                         holder.textDurata.setClickable(false);
                         holder.textExercise.setClickable(false);
+
+
                     }
                 }
 
@@ -265,7 +448,7 @@ public class ExerciseAdapter extends
             e.printStackTrace();
         }
         return true;
-    }
+    }*/
 
     public void enableButton(int tag, ViewHolder holder) {
         try {
@@ -275,10 +458,10 @@ public class ExerciseAdapter extends
             tempButton.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorButtonStart));
 
 
-            TextView textViewDurata = (TextView) viewHolder.textDurata.findViewWithTag(tag+1);
+            TextView textViewDurata = (TextView) viewHolder.textDurata.findViewWithTag(tag + 1);
             textViewDurata.setTextColor(R.color.colorAccent);
 
-            TextView textViewExercise = (TextView) viewHolder.textExercise.findViewWithTag(tag+1);
+            TextView textViewExercise = (TextView) viewHolder.textExercise.findViewWithTag(tag + 1);
             textViewExercise.setTextColor(R.color.colorAccent);
 
 
