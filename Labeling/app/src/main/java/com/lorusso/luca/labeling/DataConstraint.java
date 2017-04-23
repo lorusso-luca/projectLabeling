@@ -40,6 +40,7 @@ public class DataConstraint extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(DataConstraint.this, Constraint.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra("user", user);
                 startActivity(i);
             }
         });
@@ -71,12 +72,9 @@ public class DataConstraint extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
-
-
 }

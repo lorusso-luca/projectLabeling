@@ -43,8 +43,6 @@ public class ExerciseAdapter extends
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
 
         public TextView textExercise;
         public TextView textDurata;
@@ -59,15 +57,11 @@ public class ExerciseAdapter extends
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-
             textExercise = (TextView) itemView.findViewById(R.id.textExercise);
             textDurata = (TextView) itemView.findViewById(R.id.textDurata);
 
             buttonStartConst = (Button) itemView.findViewById(R.id.buttonStartConst);
             buttonRestart = (Button) itemView.findViewById(R.id.buttonRestart);
-            //itemView.findViewById(R.id.buttonStartConst).setOnClickListener(this);
-
-
         }
 
     }
@@ -349,106 +343,6 @@ public class ExerciseAdapter extends
 
 
     }
-
-    /*public boolean createTuple(final int i, final ViewHolder holder) {
-        File outputFileConstr = null;
-        Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
-        Calendar calendar = Calendar.getInstance();
-        long nowStart = calendar.getTimeInMillis();
-
-        String user = ((Activity) mContext).getIntent().getStringExtra("user");
-        final String descProtocol = ((Activity) mContext).getIntent().getStringExtra("descProtocol");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-        final String today = dateFormat.format(calendar.getTime());
-        dateFormat.applyPattern("HH:mm");
-        String time = dateFormat.format(calendar.getTime());
-
-        try {
-
-            File dataLabeling = new File(Environment.getExternalStorageDirectory()
-                    + "/DataLabeling");
-            if (!dataLabeling.exists())
-                dataLabeling.mkdir();
-
-
-            File userDir = new File(dataLabeling.toString(), "/" + user);
-            if (!userDir.exists()) {
-                userDir.mkdir();
-            }
-            File userDirMode = new File(userDir.toString(), "/Costraint");
-            if (!userDirMode.exists()) {
-                userDirMode.mkdir();
-            }
-
-
-            File userDirExercise = new File(userDirMode.toString(), "/" + descProtocol);
-            if (!userDirExercise.exists()) {
-                userDirExercise.mkdir();
-            }
-
-            File userDirExerciseDay = new File(userDirExercise.toString(), "/" + today);
-
-            if (!userDirExerciseDay.exists()) {
-                userDirExerciseDay.mkdir();
-            }
-
-            File userDirExerciseDayHour = new File(userDirExerciseDay.toString(), "/" + time);
-
-            if (!userDirExerciseDayHour.exists()) {
-                userDirExerciseDayHour.mkdir();
-            }
-
-
-
-            outputFileConstr = new File(userDirExerciseDayHour.toString(), "mydata.csv");
-
-            outputFileConstr.createNewFile();
-
-
-            final PrintWriter writer = new PrintWriter(new FileWriter(outputFileConstr.toString()));
-            total.append(toOctalString(nowStart));
-
-
-            writer.write(total.toString());
-
-            timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    if (millisUntilFinished > 0) {
-                        holder.buttonRestart.setClickable(true);
-                        holder.buttonStartConst.setClickable(false);
-                        holder.textDurata.setClickable(false);
-                        holder.textExercise.setClickable(false);
-
-
-                    }
-                }
-
-                @Override
-                public void onFinish() {
-                    Calendar calendar = Calendar.getInstance();
-                    long nowFinish = calendar.getTimeInMillis();
-
-                    total.append(",");
-                    total.append(toOctalString(nowFinish));
-                    total.append(",");
-
-                    writer.write(total.toString());
-                    writer.close();
-                    Toast.makeText(mContext, "ho finito" + toOctalString(getItemCount()), Toast.LENGTH_LONG).show();
-                    total.delete(0, total.length());
-                    enableButton(i, holder);
-                    disableButton(i, holder);
-
-                }
-            }.start();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }*/
 
     public void enableButton(int tag, ViewHolder holder) {
         try {
