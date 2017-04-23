@@ -1,5 +1,6 @@
 package com.lorusso.luca.labeling;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -11,15 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by Luca on 21/03/2017.
- */
 
 public class ProtocolAdapter extends
         RecyclerView.Adapter<ProtocolAdapter.ViewHolder> {
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Your holder should contain a member variable
@@ -28,20 +28,19 @@ public class ProtocolAdapter extends
         public TextView idTextView;
         public TextView descriptionTextView;
         public Button continueButton;
-
+        String user = null;
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
-
-
             protocolTextView = (TextView) itemView.findViewById(R.id.protocol);
             idTextView = (TextView) itemView.findViewById(R.id.number);
             descriptionTextView = (TextView) itemView.findViewById(R.id.description);
             continueButton = (Button) itemView.findViewById(R.id.buttonContinue);
             itemView.findViewById(R.id.buttonContinue).setOnClickListener(this);
+            user = ((Activity) mContext).getIntent().getStringExtra("user");
 
 
         }
@@ -51,18 +50,16 @@ public class ProtocolAdapter extends
 
             Toast.makeText(itemView.getContext(), "The Item Clicked is: " + getPosition(), Toast.LENGTH_SHORT).show();
 
-
             Intent i = new Intent(idTextView.getContext(), DataConstraint.class);
-
-            //errore qua!!!!!
+            i.putExtra("user",user);
             i.putExtra("protocol", this.getProtocol(getPosition()));
+            i.putExtra("descProtocol", this.getProtocol(getPosition()).getDescrizione());
             itemView.getContext().startActivity(i);
         }
 
-        public Protocol getProtocol(int position){
+        public Protocol getProtocol(int position) {
             return protocols.get(position);
         }
-
     }
 
     public List<Protocol> getProtocols() {
@@ -70,10 +67,9 @@ public class ProtocolAdapter extends
     }
 
 
-
     private static List<Protocol> protocols;
     // Store the context for easy access
-    private Context mContext;
+    private static Context mContext;
 
     // Pass in the contact array into the constructor
     public ProtocolAdapter(Context context, List<Protocol> protocols) {
@@ -100,7 +96,7 @@ public class ProtocolAdapter extends
     public void onBindViewHolder(ProtocolAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
         Protocol protocol = protocols.get(position);
-
+        final String user = ((Activity) mContext).getIntent().getStringExtra("user");
         // Set item views based on your views and data model
         TextView protocolTextView = viewHolder.protocolTextView;
         protocolTextView.setText("Protocol");

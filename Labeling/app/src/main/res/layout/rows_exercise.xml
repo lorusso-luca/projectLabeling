@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
+
+
+
+    <TextView
+        android:id="@+id/textExercise"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+
+
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_toLeftOf="@+id/buttonStartConst"
+        android:layout_toStartOf="@+id/buttonStartConst" />
+
+    <TextView
+        android:id="@+id/textDurata"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp" />
+
+    <Button
+        android:id="@+id/buttonStartConst"
+
+        android:layout_width="60dp"
+
+        android:layout_height="30dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_toLeftOf="@+id/buttonRestart"
+        android:layout_toStartOf="@+id/buttonRestart"
+        android:background="@color/colorButtonStart"
+        android:text="start"
+        android:textSize="10dp" />
+
+    <Button
+        android:id="@+id/buttonRestart"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorButtonStop"
+        android:text="restart"
+        android:textSize="10dp" />
+
+
+</RelativeLayout>

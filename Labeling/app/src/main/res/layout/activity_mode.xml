@@ -10,47 +10,46 @@
         android:id="@+id/textViewMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+
         android:text="@string/seleziona_il_modo_in_cui_vuoi_ottenere_i_dati"
-        android:textSize="25dp"
+        android:textSize="25sp"
+
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:gravity="center_horizontal"
-        />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="66dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewMode"
         android:layout_marginLeft="38dp"
         android:layout_marginStart="38dp"
-        android:id="@+id/radioGroup"
-        android:layout_below="@+id/textViewMode"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_marginTop="66dp">
 
         <RadioButton
             android:id="@+id/radioVincolato"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vincolato"
-            android:onClick="onRadioButtonClicked"/>
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/vincolato" />
 
         <RadioButton
             android:id="@+id/radioLibero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/libero"
-            android:onClick="onRadioButtonClicked"/>
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/libero" />
     </RadioGroup>
 
     <Button
         android:id="@+id/buttonMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
-        android:text="@android:string/ok"
         android:layout_below="@+id/radioGroup"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:text="@android:string/ok" />
 </RelativeLayout>

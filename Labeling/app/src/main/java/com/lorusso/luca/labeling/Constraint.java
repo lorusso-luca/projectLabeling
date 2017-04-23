@@ -1,5 +1,6 @@
 package com.lorusso.luca.labeling;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -29,12 +30,14 @@ public class Constraint extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final String user = getIntent().getStringExtra("user");
 
         JSONParser parser = new JSONParser();
 
@@ -62,14 +65,12 @@ public class Constraint extends AppCompatActivity {
                 String descrizione = (String) row.get("descrizione");
 
                 JSONArray exer = (JSONArray) row.get("Exercise");
-
-
                 ArrayList<Exercise> e = new ArrayList<Exercise>();
 
                 for (int j = 0; j < exer.size(); j++) {
                     JSONObject rowExer = (JSONObject) exer.get(j);
                     String descExercise = (String) rowExer.get("descrizione");
-                    String durataExercise = (String)rowExer.get("durata");
+                    String durataExercise = (String) rowExer.get("durata");
 
                     Exercise ex = new Exercise(descExercise, Integer.parseInt(durataExercise));
                     e.add(ex);
@@ -79,24 +80,22 @@ public class Constraint extends AppCompatActivity {
                 protocols.add(p);
             }
 
-            RecyclerView rvContacts = (RecyclerView) findViewById(R.id.my_recycler_view);
+            RecyclerView rvProtocol = (RecyclerView) findViewById(R.id.my_recycler_view);
 
             // Initialize contacts
             //temp = Person.createContactsList(temp.size());
-                // Create adapter passing in the sample user data
-           ProtocolAdapter adapter = new ProtocolAdapter(this, protocols) {
-               public void iconTextViewOnClick(View v, int position) {
-                  Log.d(TAG, "iconTextViewOnClick at position " + position);
+            // Create adapter passing in the sample user data
+            ProtocolAdapter adapter = new ProtocolAdapter(this, protocols) {
+                public void iconTextViewOnClick(View v, int position) {
+                    Log.d(TAG, "iconTextViewOnClick at position " + position);
+
                 }
             };
 
 
-            // Attach the adapter to the recyclerview to populate items
-
-
-            rvContacts.setAdapter(adapter);
+            rvProtocol.setAdapter(adapter);
             // Set layout manager to position the items
-            rvContacts.setLayoutManager(new LinearLayoutManager(this));
+            rvProtocol.setLayoutManager(new LinearLayoutManager(this));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,5 +103,11 @@ public class Constraint extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

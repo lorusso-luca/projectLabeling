@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="20dp"
     tools:context="com.lorusso.luca.labeling.DataConstraint">
 
+
     <TextView
-        android:id="@+id/tempText"
+        android:id="@+id/textProtocolDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="weeee"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="19dp" />
-</android.support.constraint.ConstraintLayout>
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp"
+        android:text="@string/protocol"
+        android:textSize="25sp"
+        tools:layout_editor_absoluteX="151dp"
+        tools:layout_editor_absoluteY="84dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view_exercise"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@+id/textProtocolDesc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp" />
+
+    <Button
+        android:id="@+id/buttonCompleteCons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:text="@string/complete"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_recycler_view_exercise"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp" />
+</RelativeLayout>
