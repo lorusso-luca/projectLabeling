@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/protocol"
+        android:id="@+id/exerc"
         android:layout_width="120dp"
         android:layout_height="wrap_content" />
 
@@ -12,8 +12,8 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/protocol"
-        android:layout_toEndOf="@+id/protocol"
+        android:layout_toRightOf="@+id/exerc"
+        android:layout_toEndOf="@+id/exerc"
         android:layout_marginLeft="7dp"
         android:layout_marginStart="7dp" />
 
@@ -21,7 +21,7 @@
         android:id="@+id/description"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/protocol"
+        android:layout_below="@+id/exerc"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="7dp" />

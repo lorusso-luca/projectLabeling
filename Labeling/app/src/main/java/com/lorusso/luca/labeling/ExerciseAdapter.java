@@ -3,6 +3,7 @@ package com.lorusso.luca.labeling;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+import static android.content.res.ColorStateList.*;
+import static com.lorusso.luca.labeling.R.color.colorToConfirm;
 import static com.lorusso.luca.labeling.R.id.buttonStartConst;
 import static com.lorusso.luca.labeling.R.id.my_recycler_view_exercise;
 import static java.lang.Long.toOctalString;
@@ -48,6 +52,7 @@ public class ExerciseAdapter extends
         public TextView textDurata;
         public Button buttonStartConst;
         public Button buttonRestart;
+        public ProgressBar progressBar;
 
 
         // We also create a constructor that accepts the entire item row
@@ -62,6 +67,8 @@ public class ExerciseAdapter extends
 
             buttonStartConst = (Button) itemView.findViewById(R.id.buttonStartConst);
             buttonRestart = (Button) itemView.findViewById(R.id.buttonRestart);
+
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBarCos);
         }
 
     }
@@ -75,6 +82,7 @@ public class ExerciseAdapter extends
     CountDownTimer timer;
     File outputFileConstr = null;
     String finalPath = null;
+    int count = 0;
 
     public ExerciseAdapter(Context mContext, ArrayList<Exercise> exercises) {
         this.exercises = exercises;
@@ -118,6 +126,7 @@ public class ExerciseAdapter extends
         holder.buttonRestart.setTag(position);
         holder.textDurata.setTag(position);
         holder.textExercise.setTag(position);
+        holder.progressBar.setTag(position);
 
         if (position != 0) {
             holder.textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
@@ -138,6 +147,7 @@ public class ExerciseAdapter extends
                         Toast.makeText(mContext, "Restaaaaart", Toast.LENGTH_SHORT).show();
                         if (timer != null) {
                             timer.cancel();
+                            count = 0;
                         }
                         holder.buttonStartConst.setClickable(true);
                         holder.buttonRestart.setClickable(false);
@@ -221,7 +231,10 @@ public class ExerciseAdapter extends
             outputFileConstr = new File(finalPath, "mydata.csv");
 
             outputFileConstr.createNewFile();
-
+            final ProgressBar tempProgress = (ProgressBar) holder.progressBar.findViewWithTag(i);
+            tempProgress.setMax(exercises.get(i).getDurata());
+            // tempProgress.setProgressTintList(valueOf(colorToConfirm));
+            tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
             timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -230,6 +243,10 @@ public class ExerciseAdapter extends
                         holder.buttonStartConst.setClickable(false);
                         holder.textDurata.setClickable(false);
                         holder.textExercise.setClickable(false);
+
+                        count++;
+                        tempProgress.setProgress(count);
+
                     }
                 }
 
@@ -246,9 +263,10 @@ public class ExerciseAdapter extends
                     total.append(toOctalString(nowFinish));
                     total.append(",");
                     total.append(exercises.get(i).getEsercizio());
-
+                    count++;
+                    tempProgress.setProgress(count);
                     Toast.makeText(mContext, "ho finito" + toOctalString(getItemCount()), Toast.LENGTH_LONG).show();
-
+                    count = 0;
                     enableButton(i, holder);
                     disableButton(i, holder);
 
@@ -264,6 +282,9 @@ public class ExerciseAdapter extends
         Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
         Calendar calendar = Calendar.getInstance();
         final long nowStart = calendar.getTimeInMillis();
+        final ProgressBar tempProgress = (ProgressBar) holder.progressBar.findViewWithTag(i);
+        tempProgress.setMax(exercises.get(i).getDurata());
+        tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
         timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -272,7 +293,8 @@ public class ExerciseAdapter extends
                     holder.buttonStartConst.setClickable(false);
                     holder.textDurata.setClickable(false);
                     holder.textExercise.setClickable(false);
-
+                    count++;
+                    tempProgress.setProgress(count);
 
                 }
             }
@@ -287,9 +309,10 @@ public class ExerciseAdapter extends
                 total.append(toOctalString(nowFinish));
                 total.append(",");
                 total.append(exercises.get(i).getEsercizio());
-
+                count++;
+                tempProgress.setProgress(count);
                 Toast.makeText(mContext, "ho finito" + toOctalString(getItemCount()), Toast.LENGTH_LONG).show();
-
+                count = 0;
                 enableButton(i, holder);
                 disableButton(i, holder);
 
@@ -303,6 +326,9 @@ public class ExerciseAdapter extends
         Calendar calendar = Calendar.getInstance();
         final long nowStart = calendar.getTimeInMillis();
         outputFileConstr = new File(finalPath, "mydata.csv");
+        final ProgressBar tempProgress = (ProgressBar) holder.progressBar.findViewWithTag(i);
+        tempProgress.setMax(exercises.get(i).getDurata());
+        tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
         timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -311,6 +337,8 @@ public class ExerciseAdapter extends
                     holder.buttonStartConst.setClickable(false);
                     holder.textDurata.setClickable(false);
                     holder.textExercise.setClickable(false);
+                    count++;
+                    tempProgress.setProgress(count);
                 }
             }
 
@@ -324,6 +352,8 @@ public class ExerciseAdapter extends
                 total.append(toOctalString(nowFinish));
                 total.append(",");
                 total.append(exercises.get(i).getEsercizio());
+                count++;
+                tempProgress.setProgress(count);
                 Toast.makeText(mContext, "ho finito" + toOctalString(getItemCount()), Toast.LENGTH_LONG).show();
                 enableButton(i, holder);
                 disableButton(i, holder);
@@ -368,7 +398,7 @@ public class ExerciseAdapter extends
     public void disableButton(int tag, ViewHolder holder) {
         try {
             Button tempButtonStart = (Button) holder.buttonStartConst.findViewWithTag(tag);
-            tempButtonStart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToConfirm));
+            tempButtonStart.setBackgroundColor(ContextCompat.getColor(mContext, colorToConfirm));
             Button tempButtonRestart = (Button) holder.buttonRestart.findViewWithTag(tag);
             tempButtonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
             holder.textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -17,8 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import au.com.bytecode.opencsv.CSVWriter;
-
+import static android.content.ContentValues.TAG;
 import static java.lang.Long.toOctalString;
 
 public class Free extends AppCompatActivity {
@@ -31,6 +33,8 @@ public class Free extends AppCompatActivity {
     File outputFileFree;
     long nowStart;
     long nowFinish;
+    ArrayList<Exercise> exercisesTotal = new ArrayList<Exercise>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class Free extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         user = getIntent().getStringExtra("user");
         spinner = (Spinner) findViewById(R.id.spinner);
+
 
     }
 
@@ -124,6 +129,8 @@ public class Free extends AppCompatActivity {
                     temp.append(toOctalString(nowStart));
                     temp.append(",");
                     temp.append(toOctalString(nowFinish));
+                    temp.append(",");
+                    temp.append(exercise);
                     try {
                         PrintWriter writer = new PrintWriter(new FileWriter(outputFileFree.toString()));
 
@@ -132,8 +139,28 @@ public class Free extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
+                    Exercise e = new Exercise(exercise, (int) ((nowFinish - nowStart) / 1000));
+                    exercisesTotal.add(e);
 
+                    RecyclerView rvExercise = (RecyclerView) findViewById(R.id.recyclerViewExercise);
+
+                    FreeAdapter adapter = new FreeAdapter(Free.this, exercisesTotal) {
+                        public void iconTextViewOnClick(View v, int position) {
+                            Log.d(TAG, "iconTextViewOnClick at position " + position);
+                            final Intent i = new Intent(Free.this, FreeAdapter.class);
+                            startActivity(i);
+                        }
+                    };
+
+                    rvExercise.setAdapter(adapter);
+
+                    rvExercise.setLayoutManager(new LinearLayoutManager(Free.this));
+
+                    Toast.makeText(Free.this, exercisesTotal.toString(), Toast.LENGTH_LONG).show();
+                    adapter.notifyData(exercisesTotal);
+                    starFree.setClickable(true);
+                    
+                }
 
             }
         });

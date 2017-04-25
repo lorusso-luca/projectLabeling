@@ -11,10 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class ProtocolAdapter extends
@@ -35,7 +32,7 @@ public class ProtocolAdapter extends
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
-            protocolTextView = (TextView) itemView.findViewById(R.id.protocol);
+            protocolTextView = (TextView) itemView.findViewById(R.id.exerc);
             idTextView = (TextView) itemView.findViewById(R.id.number);
             descriptionTextView = (TextView) itemView.findViewById(R.id.description);
             continueButton = (Button) itemView.findViewById(R.id.buttonContinue);
