@@ -159,7 +159,10 @@ public class Free extends AppCompatActivity {
                     Toast.makeText(Free.this, exercisesTotal.toString(), Toast.LENGTH_LONG).show();
                     adapter.notifyData(exercisesTotal);
                     starFree.setClickable(true);
-                    
+                    starFree.setBackgroundColor(getResources().getColor(R.color.colorButtonStart));
+                    stopFree.setBackgroundColor(getResources().getColor(R.color.colorButtonStop));
+                    spinner.setEnabled(true);
+
                 }
 
             }

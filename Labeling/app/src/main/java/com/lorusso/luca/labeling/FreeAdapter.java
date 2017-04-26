@@ -35,9 +35,9 @@ class FreeAdapter extends
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            textExercise = (TextView) itemView.findViewById(R.id.exerc);
+            textExercise = (TextView) itemView.findViewById(R.id.description);
             textDurata = (TextView) itemView.findViewById(R.id.duration);
-            textDescription = (TextView) itemView.findViewById(R.id.description);
+            textDescription = (TextView) itemView.findViewById(R.id.exerc);
         }
 
 
