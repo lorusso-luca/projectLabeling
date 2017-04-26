@@ -130,9 +130,7 @@ public class ExerciseAdapter extends
 
 
         if (position != 0) {
-            /*holder.textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
-            holder.textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));*/
-            // holder.buttonStartConst.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+
             Button tempStart = (Button) holder.buttonStartConst.findViewWithTag(position);
             tempStart.setEnabled(false);
             Button tempRestart = (Button) holder.buttonRestart.findViewWithTag(position);
@@ -149,7 +147,7 @@ public class ExerciseAdapter extends
                 holder.buttonRestart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mContext, "Restaaaaart", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Restart", Toast.LENGTH_SHORT).show();
                         if (timer != null) {
                             timer.cancel();
                             count = 0;
@@ -170,13 +168,10 @@ public class ExerciseAdapter extends
 
         if (i == 0) {
             createFile(i, holder);
-            Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
         } else if (i >= 1 && i < exercises.size() - 1) {
             buildString(i, holder);
         } else {
             createFinalFile(i, holder);
-            Toast.makeText(mContext, toOctalString(i) + "ultimo", Toast.LENGTH_LONG).show();
-
         }
 
 
@@ -185,7 +180,6 @@ public class ExerciseAdapter extends
 
     public void createFile(final int i, final ViewHolder holder) {
 
-        Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
         Calendar calendar = Calendar.getInstance();
         final long nowStart = calendar.getTimeInMillis();
         String user = ((Activity) mContext).getIntent().getStringExtra("user");
@@ -238,7 +232,7 @@ public class ExerciseAdapter extends
             outputFileConstr.createNewFile();
             final ProgressBar tempProgress = (ProgressBar) holder.progressBar.findViewWithTag(i);
             tempProgress.setMax(exercises.get(i).getDurata());
-            // tempProgress.setProgressTintList(valueOf(colorToConfirm));
+
             tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
             timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
                 @Override
@@ -284,7 +278,7 @@ public class ExerciseAdapter extends
     }
 
     private void buildString(final int i, final ViewHolder holder) {
-        Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
+
         Calendar calendar = Calendar.getInstance();
         final long nowStart = calendar.getTimeInMillis();
         final ProgressBar tempProgress = (ProgressBar) holder.progressBar.findViewWithTag(i);
@@ -327,7 +321,7 @@ public class ExerciseAdapter extends
     }
 
     private void createFinalFile(final int i, final ViewHolder holder) {
-        Toast.makeText(mContext, toOctalString(i), Toast.LENGTH_LONG).show();
+
         Calendar calendar = Calendar.getInstance();
         final long nowStart = calendar.getTimeInMillis();
         outputFileConstr = new File(finalPath, "mydata.csv");

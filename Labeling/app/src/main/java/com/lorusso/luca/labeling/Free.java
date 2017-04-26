@@ -63,8 +63,8 @@ public class Free extends AppCompatActivity {
                 dateFormat.applyPattern("HH:mm.ss");
                 String time = dateFormat.format(calendar.getTime());
 
-
                 spinner.setEnabled(false);
+
                 try {
                     File dataLabeling = new File(Environment.getExternalStorageDirectory()
                             + "/DataLabeling");
@@ -131,14 +131,12 @@ public class Free extends AppCompatActivity {
                     temp.append(toOctalString(nowFinish));
                     temp.append(",");
                     temp.append(exercise);
-                    Toast.makeText(Free.this, toOctalString((int)((nowFinish-nowStart)/1000)), Toast.LENGTH_LONG).show();
-
 
                     try {
                         PrintWriter writer = new PrintWriter(new FileWriter(outputFileFree.toString()));
-
                         writer.write(temp.toString());
                         writer.close();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
