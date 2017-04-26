@@ -131,6 +131,9 @@ public class Free extends AppCompatActivity {
                     temp.append(toOctalString(nowFinish));
                     temp.append(",");
                     temp.append(exercise);
+                    Toast.makeText(Free.this, toOctalString((int)((nowFinish-nowStart)/1000)), Toast.LENGTH_LONG).show();
+
+
                     try {
                         PrintWriter writer = new PrintWriter(new FileWriter(outputFileFree.toString()));
 

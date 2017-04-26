@@ -128,11 +128,15 @@ public class ExerciseAdapter extends
         holder.textExercise.setTag(position);
         holder.progressBar.setTag(position);
 
+
         if (position != 0) {
-            holder.textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
-            holder.textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
-            holder.buttonStartConst.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
-            holder.buttonStartConst.setClickable(false);
+            /*holder.textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+            holder.textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));*/
+            // holder.buttonStartConst.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
+            Button tempStart = (Button) holder.buttonStartConst.findViewWithTag(position);
+            tempStart.setEnabled(false);
+            Button tempRestart = (Button) holder.buttonRestart.findViewWithTag(position);
+            tempRestart.setEnabled(false);
 
         }
         holder.buttonStartConst.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +144,7 @@ public class ExerciseAdapter extends
             public void onClick(View v) {
 
                 holder.buttonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorButtonStop));
+                holder.buttonRestart.setEnabled(true);
                 doAction((Integer) v.getTag(), holder);
                 holder.buttonRestart.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -380,7 +385,7 @@ public class ExerciseAdapter extends
             ViewHolder viewHolder = vh.get(tag + 1);
             Button tempButton = (Button) viewHolder.buttonStartConst.findViewWithTag(tag + 1);
             tempButton.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorButtonStart));
-
+            tempButton.setEnabled(true);
 
             TextView textViewDurata = (TextView) viewHolder.textDurata.findViewWithTag(tag + 1);
             textViewDurata.setTextColor(R.color.colorAccent);
@@ -398,8 +403,10 @@ public class ExerciseAdapter extends
     public void disableButton(int tag, ViewHolder holder) {
         try {
             Button tempButtonStart = (Button) holder.buttonStartConst.findViewWithTag(tag);
+            tempButtonStart.setEnabled(false);
             tempButtonStart.setBackgroundColor(ContextCompat.getColor(mContext, colorToConfirm));
             Button tempButtonRestart = (Button) holder.buttonRestart.findViewWithTag(tag);
+            tempButtonRestart.setEnabled(false);
             tempButtonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorToHide));
             holder.textDurata.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
             holder.textExercise.setTextColor(ContextCompat.getColor(mContext, R.color.colorToHide));
