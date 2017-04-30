@@ -79,14 +79,17 @@ public class ExerciseAdapter extends
     private Context mContext;
     String timeStart;
     ArrayList<ViewHolder> vh = new ArrayList<ViewHolder>();
+    Button b;
     CountDownTimer timer;
     File outputFileConstr = null;
     String finalPath = null;
     int count = 0;
+    String user;
 
-    public ExerciseAdapter(Context mContext, ArrayList<Exercise> exercises) {
+    public ExerciseAdapter(Context mContext, ArrayList<Exercise> exercises, Button b) {
         this.exercises = exercises;
         this.mContext = mContext;
+        this.b = b;
     }
 
     @Override
@@ -182,7 +185,7 @@ public class ExerciseAdapter extends
 
         Calendar calendar = Calendar.getInstance();
         final long nowStart = calendar.getTimeInMillis();
-        String user = ((Activity) mContext).getIntent().getStringExtra("user");
+        user = ((Activity) mContext).getIntent().getStringExtra("user");
         final String descProtocol = ((Activity) mContext).getIntent().getStringExtra("descProtocol");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -366,7 +369,15 @@ public class ExerciseAdapter extends
 
                 writer.write(total.toString());
                 writer.close();
-
+                b.setEnabled(true);
+                b.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                       Intent i = new Intent(mContext, Constraint.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        i.putExtra("user", user);
+                        mContext.startActivity(i);
+                    }
+                });
             }
         }.start();
 

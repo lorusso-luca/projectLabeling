@@ -35,15 +35,8 @@ public class DataConstraint extends AppCompatActivity {
         protocolDescription = (TextView) findViewById(R.id.textProtocolDesc);
         completeConst = (Button) findViewById(R.id.buttonCompleteCons);
 
+        completeConst.setEnabled(false);
 
-        completeConst.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(DataConstraint.this, Constraint.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("user", user);
-                startActivity(i);
-            }
-        });
 
         Protocol o = (Protocol) getIntent().getSerializableExtra("protocol");
         protocolDescription.setText(o.getDescrizione().toString());
@@ -55,7 +48,7 @@ public class DataConstraint extends AppCompatActivity {
 
         RecyclerView rvExercise = (RecyclerView) findViewById(R.id.my_recycler_view_exercise);
 
-        ExerciseAdapter adapter = new ExerciseAdapter(this, exercises) {
+        ExerciseAdapter adapter = new ExerciseAdapter(this, exercises, completeConst) {
             public void iconTextViewOnClick(View v, int position) {
                 Log.d(TAG, "iconTextViewOnClick at position " + position);
                 final Intent i = new Intent(DataConstraint.this, ExerciseAdapter.class);
@@ -68,6 +61,10 @@ public class DataConstraint extends AppCompatActivity {
         rvExercise.setAdapter(adapter);
 
         rvExercise.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+    public void onStart(){
+        super.onStart();
 
     }
 
