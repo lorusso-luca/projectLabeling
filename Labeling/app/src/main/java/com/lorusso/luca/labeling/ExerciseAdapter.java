@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.renderscript.Sampler;
@@ -236,7 +237,9 @@ public class ExerciseAdapter extends
             final ProgressBar tempProgress = (ProgressBar) holder.progressBar.findViewWithTag(i);
             tempProgress.setMax(exercises.get(i).getDurata());
 
-            tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+            if (Build.VERSION.SDK_INT >= 21) {
+                tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+            }
             timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -262,7 +265,7 @@ public class ExerciseAdapter extends
                     total.append("\n");
                     total.append(nowStart);
                     total.append(",");
-                    total.append(toOctalString(nowFinish));
+                    total.append(String.valueOf(nowFinish));
                     total.append(",");
                     total.append(exercises.get(i).getEsercizio());
                     count++;
@@ -286,7 +289,10 @@ public class ExerciseAdapter extends
         final long nowStart = calendar.getTimeInMillis();
         final ProgressBar tempProgress = (ProgressBar) holder.progressBar.findViewWithTag(i);
         tempProgress.setMax(exercises.get(i).getDurata());
-        tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+        if (Build.VERSION.SDK_INT >= 21) {
+            tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+        }
+
         timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -308,7 +314,7 @@ public class ExerciseAdapter extends
                 total.append("\n");
                 total.append(nowStart);
                 total.append(",");
-                total.append(toOctalString(nowFinish));
+                total.append(String.valueOf(nowFinish));
                 total.append(",");
                 total.append(exercises.get(i).getEsercizio());
                 count++;
@@ -330,7 +336,9 @@ public class ExerciseAdapter extends
         outputFileConstr = new File(finalPath, "mydata.csv");
         final ProgressBar tempProgress = (ProgressBar) holder.progressBar.findViewWithTag(i);
         tempProgress.setMax(exercises.get(i).getDurata());
-        tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+        if (Build.VERSION.SDK_INT >= 21) {
+            tempProgress.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+        }
         timer = new CountDownTimer(exercises.get(i).getDurata() * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -351,7 +359,7 @@ public class ExerciseAdapter extends
                 total.append("\n");
                 total.append(nowStart);
                 total.append(",");
-                total.append(toOctalString(nowFinish));
+                total.append(String.valueOf(nowFinish));
                 total.append(",");
                 total.append(exercises.get(i).getEsercizio());
                 count++;
@@ -372,7 +380,7 @@ public class ExerciseAdapter extends
                 b.setEnabled(true);
                 b.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                       Intent i = new Intent(mContext, Constraint.class);
+                        Intent i = new Intent(mContext, Constraint.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         i.putExtra("user", user);
                         mContext.startActivity(i);

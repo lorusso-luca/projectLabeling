@@ -63,6 +63,7 @@ public class Free extends AppCompatActivity {
                 dateFormat.applyPattern("HH:mm.ss");
                 String time = dateFormat.format(calendar.getTime());
 
+                completeFree.setEnabled(false);
                 spinner.setEnabled(false);
 
                 try {
@@ -126,9 +127,9 @@ public class Free extends AppCompatActivity {
                     temp.append(",");
                     temp.append("Stop");
                     temp.append("\n");
-                    temp.append(toOctalString(nowStart));
+                    temp.append(String.valueOf(nowStart));
                     temp.append(",");
-                    temp.append(toOctalString(nowFinish));
+                    temp.append(String.valueOf(nowFinish));
                     temp.append(",");
                     temp.append(exercise);
 
@@ -163,6 +164,7 @@ public class Free extends AppCompatActivity {
                     starFree.setBackgroundColor(getResources().getColor(R.color.colorButtonStart));
                     stopFree.setBackgroundColor(getResources().getColor(R.color.colorButtonStop));
                     spinner.setEnabled(true);
+                    completeFree.setEnabled(true);
 
                 }
 

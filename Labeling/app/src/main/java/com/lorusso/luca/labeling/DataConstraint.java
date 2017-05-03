@@ -63,15 +63,6 @@ public class DataConstraint extends AppCompatActivity {
         rvExercise.setLayoutManager(new LinearLayoutManager(this));
 
     }
-    public void onStart(){
-        super.onStart();
-
-    }
 
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
 }
