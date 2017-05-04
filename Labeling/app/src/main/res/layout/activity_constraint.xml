@@ -11,11 +11,14 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="79dp"
+        android:layout_marginTop="45dp"
         android:text="@string/etichettatura_vincolata"
-        android:textSize="25sp"/>
+        android:textSize="25sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/my_recycler_view"
+        android:layout_alignStart="@+id/my_recycler_view"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"

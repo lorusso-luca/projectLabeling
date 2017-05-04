@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import static android.content.ContentValues.TAG;
-import static java.lang.Long.toOctalString;
+
 
 public class Free extends AppCompatActivity {
     Button starFree;
@@ -175,9 +175,9 @@ public class Free extends AppCompatActivity {
 
         completeFree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(Free.this, Mode.class);
+                Intent i = new Intent(Free.this, Home.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("idUser", user);
+                i.putExtra("user", user);
                 startActivity(i);
             }
         });

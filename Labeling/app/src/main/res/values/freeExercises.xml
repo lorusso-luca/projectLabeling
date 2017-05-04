@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="freeExercises">
-        <item>Run</item>
-        <item>Walk</item>
-        <item>Sit-down</item>
-        <item>Go upstairs</item>
-    </string-array>
+<string-array name="freeExercises">
+    <item>Run</item>
+    <item>Walk</item>
+    <item>Sit-down</item>
+    <item>Go upstairs</item>
+</string-array>
 </resources>
