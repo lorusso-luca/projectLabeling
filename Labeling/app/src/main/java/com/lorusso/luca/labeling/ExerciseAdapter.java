@@ -34,6 +34,8 @@ import java.util.Objects;
 
 import static android.content.res.ColorStateList.*;
 import static com.lorusso.luca.labeling.R.color.colorToConfirm;
+import static com.lorusso.luca.labeling.R.id.action_bar;
+import static com.lorusso.luca.labeling.R.id.action_mode_bar_stub;
 import static com.lorusso.luca.labeling.R.id.buttonStartConst;
 import static com.lorusso.luca.labeling.R.id.my_recycler_view_exercise;
 import static java.lang.Long.toOctalString;
@@ -147,6 +149,7 @@ public class ExerciseAdapter extends
 
                 holder.buttonRestart.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorButtonStop));
                 holder.buttonRestart.setEnabled(true);
+
                 doAction((Integer) v.getTag(), holder);
                 holder.buttonRestart.setOnClickListener(new View.OnClickListener() {
                     @Override

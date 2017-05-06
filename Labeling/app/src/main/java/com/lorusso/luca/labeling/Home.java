@@ -4,12 +4,17 @@ package com.lorusso.luca.labeling;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.view.WindowManager;
@@ -118,6 +123,43 @@ public class Home extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menuinfo, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // action with ID action_refresh was selected
+            case R.id.action_Home:
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT)
+                        .show();
+                break;
+            // action with ID action_settings was selected
+            case R.id.action_open_explorel:
+                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
+                        .show();
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
+                        + "/DataLabeling/");
+                intent.setDataAndType(uri, "text/csv/folder");
+                startActivity(Intent.createChooser(intent, "Open folder"));
+            break;
+            case R.id.action_info:
+                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
+                        .show();
+                Intent i = new Intent(Home.this, Info.class);
+                startActivity(i);
+                break;
+            default:
+                break;
+        }
+
+        return true;
     }
 
 }

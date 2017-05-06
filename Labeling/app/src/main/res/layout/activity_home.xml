@@ -14,7 +14,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/cardView1"
         android:layout_marginBottom="116dp"
-        android:text="Next" />
+        android:background="@color/colorPrimary"
+        android:text="Next"
+        android:textColor="@color/cardview_light_background" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView1"
@@ -35,7 +37,9 @@
 
             android:layout_marginLeft="20sp"
             android:layout_marginTop="10sp"
-            android:text="@string/inserisci_il_tuo_id" />
+            android:text="@string/inserisci_il_tuo_id"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/idText"
@@ -45,8 +49,8 @@
             android:layout_marginLeft="10sp"
             android:layout_marginRight="15sp"
             android:layout_marginTop="30sp"
-            android:inputType="textPersonName"
             android:hint="ID"
+            android:inputType="textPersonName"
             android:textSize="16sp" />
 
 
@@ -69,6 +73,7 @@
             android:layout_marginLeft="25sp"
             android:layout_marginTop="20sp"
             android:text="Select how to get your data"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <Spinner

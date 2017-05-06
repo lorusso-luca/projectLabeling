@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import org.json.simple.JSONArray;
@@ -37,6 +39,7 @@ public class Constraint extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final String user = getIntent().getStringExtra("user");
 
         JSONParser parser = new JSONParser();
@@ -103,6 +106,17 @@ public class Constraint extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menuinfo, menu);
+        return true;
+    }
+
+    public void homePage() {
+        Intent i = new Intent(Constraint.this, Home.class);
+        startActivity(i);
     }
 
     @Override

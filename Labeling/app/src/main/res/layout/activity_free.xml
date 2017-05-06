@@ -7,34 +7,35 @@
     tools:context="com.lorusso.luca.labeling.Free">
 
 
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_alignLeft="@+id/recyclerViewExercise"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/recyclerViewExercise"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="40sp"
         android:text="@string/free_labeling"
         android:textSize="25sp"
+        android:textStyle="bold"
         tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="92dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/recyclerViewExercise"
-        android:layout_alignStart="@+id/recyclerViewExercise"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp" />
+        tools:layout_editor_absoluteY="92dp" />
 
     <Button
         android:id="@+id/buttonCompleteFree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Complete"
+        android:layout_alignEnd="@+id/recyclerViewExercise"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/recyclerViewExercise"
-        android:layout_alignEnd="@+id/recyclerViewExercise"
-        android:layout_marginRight="15dp"
+        android:layout_marginBottom="55dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="55dp" />
+        android:layout_marginRight="15dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:text="Complete"
+        android:textColor="@android:color/background_light" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,7 +63,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:text="@string/start_free_exercise"
-                android:textSize="15dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 tools:ignore="RtlHardcoded" />
 
             <Spinner
@@ -81,6 +83,7 @@
             android:layout_marginRight="15dp"
             android:background="@color/colorButtonStart"
             android:text="start"
+            android:textColor="@android:color/background_light"
             android:textSize="10dp" />
 
 
@@ -91,6 +94,7 @@
             android:layout_marginRight="10dp"
             android:background="@color/colorButtonStop"
             android:text="stop"
+            android:textColor="@android:color/background_light"
             android:textSize="10dp" />
 
 
@@ -102,8 +106,9 @@
         android:layout_height="100dp"
         android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginTop="40sp"
         android:layout_weight="0.92" />
 
 </RelativeLayout>

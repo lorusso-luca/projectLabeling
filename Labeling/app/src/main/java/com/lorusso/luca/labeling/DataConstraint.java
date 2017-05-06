@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ public class DataConstraint extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_constraint);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         user = getIntent().getStringExtra("user");
         // temp = (TextView) findViewById(R.id.tempText);
         protocolDescription = (TextView) findViewById(R.id.textProtocolDesc);
@@ -62,6 +65,12 @@ public class DataConstraint extends AppCompatActivity {
 
         rvExercise.setLayoutManager(new LinearLayoutManager(this));
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menuinfo, menu);
+        return true;
     }
 
 

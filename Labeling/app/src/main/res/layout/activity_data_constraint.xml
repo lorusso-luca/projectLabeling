@@ -13,16 +13,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="40sp"
         android:text="@string/protocol"
         android:textSize="25sp"
+        android:textStyle="bold"
         tools:layout_editor_absoluteX="151dp"
-        tools:layout_editor_absoluteY="84dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        tools:layout_editor_absoluteY="84dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view_exercise"
@@ -30,19 +30,22 @@
         android:layout_height="220dp"
         android:layout_below="@+id/textProtocolDesc"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
         android:layout_marginTop="60sp" />
 
     <Button
         android:id="@+id/buttonCompleteCons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="@string/complete"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="39dp"
         android:layout_marginRight="39dp"
-        android:layout_marginEnd="39dp" />
+        android:background="@color/colorPrimary"
+        android:text="@string/complete"
+        android:textColor="@android:color/background_light" />
 
 </RelativeLayout>
