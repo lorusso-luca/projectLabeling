@@ -262,6 +262,8 @@ public class ExerciseAdapter extends
                 public void onFinish() {
                     Calendar calendar = Calendar.getInstance();
                     long nowFinish = calendar.getTimeInMillis();
+                    total.append(user.toString()+","+"Free"+","+today);
+                    total.append("\n");
                     total.append("Start");
                     total.append(",");
                     total.append("Stop");
@@ -381,6 +383,8 @@ public class ExerciseAdapter extends
                 writer.write(total.toString());
                 writer.close();
                 b.setEnabled(true);
+                b.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                b.setTextColor(ContextCompat.getColor(mContext, R.color.colorWhite));
                 b.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent i = new Intent(mContext, Constraint.class);

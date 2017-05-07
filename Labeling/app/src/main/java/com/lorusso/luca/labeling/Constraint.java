@@ -2,6 +2,7 @@ package com.lorusso.luca.labeling;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,6 +35,7 @@ public class Constraint extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    String user;
 
     @Override
 
@@ -40,7 +44,7 @@ public class Constraint extends AppCompatActivity {
         setContentView(R.layout.activity_constraint);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final String user = getIntent().getStringExtra("user");
+        user = getIntent().getStringExtra("user");
 
         JSONParser parser = new JSONParser();
 
@@ -108,20 +112,52 @@ public class Constraint extends AppCompatActivity {
 
     }
 
+
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menuinfo, menu);
         return true;
     }
 
-    public void homePage() {
-        Intent i = new Intent(Constraint.this, Home.class);
-        startActivity(i);
-    }
-
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i;
+        switch (item.getItemId()) {
+            // action with ID action_refresh was selected
+            case R.id.action_Home:
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT)
+                        .show();
+                i = new Intent(Constraint.this, Home.class);
+                i.putExtra("user", user);
+                startActivity(i);
+                break;
+            // action with ID action_settings was selected
+            case R.id.action_open_explorel:
+                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
+                        .show();
+               /* Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
+                        + "/DataLabeling/");
+                intent.setDataAndType(uri, "text/csv/folder");
+                startActivity(Intent.createChooser(intent, "Open folder"));*/
+
+                break;
+            case R.id.action_info:
+                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
+                        .show();
+                i = new Intent(Constraint.this, Info.class);
+                startActivity(i);
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                break;
+        }
+
         return true;
     }
+
+
 }

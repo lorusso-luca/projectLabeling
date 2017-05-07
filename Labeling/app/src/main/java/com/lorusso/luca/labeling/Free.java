@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -36,6 +37,7 @@ public class Free extends AppCompatActivity {
     long nowStart;
     long nowFinish;
     ArrayList<Exercise> exercisesTotal = new ArrayList<Exercise>();
+    String today;
 
 
     @Override
@@ -61,7 +63,7 @@ public class Free extends AppCompatActivity {
                 starFree.setBackgroundColor(getResources().getColor(R.color.colorToConfirm));
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-                String today = dateFormat.format(calendar.getTime());
+                today = dateFormat.format(calendar.getTime());
                 dateFormat.applyPattern("HH:mm.ss");
                 String time = dateFormat.format(calendar.getTime());
 
@@ -125,6 +127,8 @@ public class Free extends AppCompatActivity {
                 } else {
                     stopFree.setBackgroundColor(getResources().getColor(R.color.colorToConfirm));
                     StringBuilder temp = new StringBuilder();
+                    temp.append(user.toString()+","+"Free"+","+today);
+                    temp.append("\n");
                     temp.append("Start");
                     temp.append(",");
                     temp.append("Stop");
@@ -187,15 +191,51 @@ public class Free extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
 
-    }
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menuinfo, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i;
+        switch (item.getItemId()) {
+            // action with ID action_refresh was selected
+            case R.id.action_Home:
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT)
+                        .show();
+                i = new Intent(Free.this, Home.class);
+                i.putExtra("user", user);
+                startActivity(i);
+                break;
+            // action with ID action_settings was selected
+            case R.id.action_open_explorel:
+                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
+                        .show();
+               /* Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
+                        + "/DataLabeling/");
+                intent.setDataAndType(uri, "text/csv/folder");
+                startActivity(Intent.createChooser(intent, "Open folder"));*/
+
+                break;
+            case R.id.action_info:
+                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
+                        .show();
+                i = new Intent(Free.this, Info.class);
+                startActivity(i);
+                break;
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                break;
+        }
+
         return true;
     }
 

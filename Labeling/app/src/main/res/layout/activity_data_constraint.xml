@@ -44,8 +44,8 @@
         android:layout_marginBottom="28dp"
         android:layout_marginEnd="39dp"
         android:layout_marginRight="39dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/cardview_shadow_start_color"
         android:text="@string/complete"
-        android:textColor="@android:color/background_light" />
+        android:textColor="?android:attr/colorForeground" />
 
 </RelativeLayout>

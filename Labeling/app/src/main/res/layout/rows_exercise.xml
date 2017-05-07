@@ -7,39 +7,42 @@
     android:orientation="vertical">
 
 
+
+
+    <TextView
+        android:id="@+id/textDurata"
+        android:layout_width="80sp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10sp"
+        android:layout_marginTop="5sp"
+        android:textSize="16sp" />
+
     <TextView
         android:id="@+id/textExercise"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
 
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
+
+        android:layout_marginLeft="5sp"
         android:layout_marginTop="5sp"
-        android:layout_toLeftOf="@+id/buttonStartConst"
-        android:layout_toStartOf="@+id/buttonStartConst"
+        android:layout_toRightOf="@id/textDurata"
+
         android:textSize="16sp"
         android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textDurata"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5sp"
-        android:textSize="16sp" />
 
     <Button
         android:id="@+id/buttonStartConst"
 
-        android:layout_width="60dp"
+        android:layout_width="60sp"
 
-        android:layout_height="30dp"
+        android:layout_height="30sp"
 
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11sp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="11sp"
         android:layout_marginTop="5sp"
         android:layout_toLeftOf="@+id/buttonRestart"
         android:layout_toStartOf="@+id/buttonRestart"

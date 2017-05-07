@@ -8,4 +8,5 @@
     <color name="colorToHide">#cac4c4</color>
     <color name="colorToConfirm">#0c5ab3</color>
     <color name="colorDefault">#0c5ab3</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

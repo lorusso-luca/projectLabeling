@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
+
 
 public class Home extends AppCompatActivity {
     EditText id;
@@ -147,7 +149,13 @@ public class Home extends AppCompatActivity {
                 Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
                         + "/DataLabeling/");
                 intent.setDataAndType(uri, "text/csv/folder");
-                startActivity(Intent.createChooser(intent, "Open folder"));
+
+                startActivity(Intent.createChooser(intent, "Open file..."));
+                /*int PICKFILE_RESULT_CODE=1;
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("file*//*");
+                startActivityForResult(intent,PICKFILE_RESULT_CODE);*/
+
             break;
             case R.id.action_info:
                 Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
