@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_Home"
+        android:title="Home"/>
+    <item
+        android:id="@+id/action_open_explorel"
+        android:title="Open in Explorer">
+    </item>
+    <item
+        android:id="@+id/action_info"
+        android:title="Info">
+    </item>
+
+</menu>

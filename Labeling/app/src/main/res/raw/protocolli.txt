@@ -1,0 +1,57 @@
+{
+  "protocolli": [
+    {
+      "id": "1",
+      "nome": "prova",
+      "descrizione": "Protocollo relax",
+      "Exercise": [
+        {
+          "descrizione": "camminare",
+          "durata": "10"
+        },
+        {
+          "descrizione": "seduto",
+          "durata": "15"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "prova 2",
+      "descrizione": "Protocollo fast",
+      "Exercise": [
+        {
+          "descrizione": "corri",
+          "durata": "15"
+        },
+        {
+          "descrizione": "salta",
+          "durata": "5"
+        }
+      ]
+    },
+	{
+      "id": "3",
+      "nome": "prova 3",
+      "descrizione": "Protocollo hard",
+      "Exercise": [
+        {
+          "descrizione": "corri",
+          "durata": "15"
+        },
+        {
+          "descrizione": "salta",
+          "durata": "5"
+        },
+		{
+          "descrizione": "corri",
+          "durata": "20"
+        },
+		{
+          "descrizione": "salta",
+          "durata": "10"
+        }
+      ]
+    }
+  ]
+}

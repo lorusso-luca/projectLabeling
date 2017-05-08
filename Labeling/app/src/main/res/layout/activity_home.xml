@@ -6,13 +6,85 @@
     android:layout_height="match_parent"
     tools:context="com.lorusso.luca.labeling.Home">
 
-    <TextView
+    <Button
+        android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ciao"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignEnd="@+id/cardView1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/cardView1"
+        android:layout_marginBottom="116dp"
+        android:background="@color/colorPrimary"
+        android:text="Next"
+        android:textColor="@color/cardview_light_background" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="36dp">
+
+        <TextView
+            android:id="@+id/textExercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="10sp"
+            android:text="@string/inserisci_il_tuo_id"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/idText"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textExercise"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="15sp"
+            android:layout_marginTop="30sp"
+            android:hint="ID"
+            android:inputType="textPersonName"
+            android:textSize="16sp" />
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="100sp"
+        android:layout_alignLeft="@+id/cardView1"
+        android:layout_alignStart="@+id/cardView1"
+        android:layout_below="@+id/cardView1"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:layout_marginTop="20sp"
+            android:text="Select how to get your data"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="45sp"
+            android:entries="@array/modegetdata"/>
+    </android.support.v7.widget.CardView>
+
 
 </RelativeLayout>
