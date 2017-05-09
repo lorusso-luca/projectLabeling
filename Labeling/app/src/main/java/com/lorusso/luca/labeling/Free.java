@@ -1,5 +1,9 @@
 package com.lorusso.luca.labeling;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,6 +36,7 @@ public class Free extends AppCompatActivity {
     Button stopFree;
     Button completeFree;
     String user;
+    ProgressBar progressBar;
     Spinner spinner;
     String exercise;
     File outputFileFree;
@@ -47,6 +53,7 @@ public class Free extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         user = getIntent().getStringExtra("user");
         spinner = (Spinner) findViewById(R.id.spinner);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 
     }
@@ -69,6 +76,20 @@ public class Free extends AppCompatActivity {
 
                 completeFree.setEnabled(false);
                 spinner.setEnabled(false);
+                progressBar.setVisibility(View.VISIBLE);
+
+                Intent intentNoti = new Intent();
+                PendingIntent pIntent = PendingIntent.getActivity(Free.this, 0, intentNoti, 0);
+                Notification noti = new Notification.Builder(Free.this)
+                        .setTicker("TickerTitle")
+                        .setContentTitle("Content Title")
+                        .setContentText("Content Text ahjdsafd")
+                        .setSmallIcon(R.drawable.imgnotification)
+                        .setContentIntent(pIntent).getNotification();
+                noti.flags = Notification.FLAG_AUTO_CANCEL;
+                NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                nm.notify(0, noti);
+
 
                 try {
                     File dataLabeling = new File(Environment.getExternalStorageDirectory()
@@ -127,7 +148,7 @@ public class Free extends AppCompatActivity {
                 } else {
                     stopFree.setBackgroundColor(getResources().getColor(R.color.colorToConfirm));
                     StringBuilder temp = new StringBuilder();
-                    temp.append(user.toString()+","+"Free"+","+today);
+                    temp.append(user.toString() + "," + "Free" + "," + today);
                     temp.append("\n");
                     temp.append("Start");
                     temp.append(",");
@@ -150,6 +171,8 @@ public class Free extends AppCompatActivity {
                     Exercise e = new Exercise(exercise, (int) ((nowFinish - nowStart) / 1000));
                     exercisesTotal.add(e);
 
+                    progressBar.setVisibility(View.INVISIBLE);
+
                     RecyclerView rvExercise = (RecyclerView) findViewById(R.id.recyclerViewExercise);
 
                     FreeAdapter adapter = new FreeAdapter(Free.this, exercisesTotal) {
@@ -171,6 +194,9 @@ public class Free extends AppCompatActivity {
                     stopFree.setBackgroundColor(getResources().getColor(R.color.colorButtonStop));
                     spinner.setEnabled(true);
                     completeFree.setEnabled(true);
+
+                    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    mNotificationManager.cancel(0);
 
                 }
 
