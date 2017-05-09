@@ -89,10 +89,13 @@ public class ExerciseAdapter extends
     int count = 0;
     String user;
 
+
+
     public ExerciseAdapter(Context mContext, ArrayList<Exercise> exercises, Button b) {
         this.exercises = exercises;
         this.mContext = mContext;
         this.b = b;
+
     }
 
     @Override
@@ -110,6 +113,7 @@ public class ExerciseAdapter extends
         return viewHolder;
 
     }
+
 
 
     @Override
@@ -151,6 +155,8 @@ public class ExerciseAdapter extends
                 holder.buttonRestart.setEnabled(true);
 
                 doAction((Integer) v.getTag(), holder);
+
+
                 holder.buttonRestart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
