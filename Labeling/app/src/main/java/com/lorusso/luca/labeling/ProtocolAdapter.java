@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +25,9 @@ public class ProtocolAdapter extends
         public TextView protocolTextView;
         public TextView idTextView;
         public TextView descriptionTextView;
-        public Button continueButton;
+        public ImageView continueButton;
         String user = null;
+
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
@@ -35,7 +37,7 @@ public class ProtocolAdapter extends
             protocolTextView = (TextView) itemView.findViewById(R.id.exerc);
             idTextView = (TextView) itemView.findViewById(R.id.number);
             descriptionTextView = (TextView) itemView.findViewById(R.id.description);
-            continueButton = (Button) itemView.findViewById(R.id.buttonContinue);
+            continueButton = (ImageView) itemView.findViewById(R.id.buttonContinue);
             itemView.findViewById(R.id.buttonContinue).setOnClickListener(this);
             user = ((Activity) mContext).getIntent().getStringExtra("user");
 
@@ -48,7 +50,7 @@ public class ProtocolAdapter extends
             Toast.makeText(itemView.getContext(), "The Item Clicked is: " + getPosition(), Toast.LENGTH_SHORT).show();
 
             Intent i = new Intent(idTextView.getContext(), DataConstraint.class);
-            i.putExtra("user",user);
+            i.putExtra("user", user);
             i.putExtra("protocol", this.getProtocol(getPosition()));
             i.putExtra("descProtocol", this.getProtocol(getPosition()).getDescrizione());
             itemView.getContext().startActivity(i);
@@ -104,9 +106,7 @@ public class ProtocolAdapter extends
         TextView descriptionTextView = viewHolder.descriptionTextView;
         descriptionTextView.setText(protocol.getDescrizione());
 
-        Button button = viewHolder.continueButton;
-
-
+        
     }
 
     @Override
